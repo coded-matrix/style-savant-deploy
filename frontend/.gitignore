@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Next.js
+.next/
+out/
+
+# Database
+dev.db
+dev.db-journal
+drizzle/
+
+# Debug / OS
+.DS_Store
+*.log
+npm-debug.log*
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/settings.json
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Specs
+stitch_markdown_spec_web_app/

@@ -1,0 +1,356 @@
+// Mock catalog data used as a fallback by middleware.ts when the upstream
+// backend (http://localhost:3001) is unreachable. This lets the entire app
+// run end-to-end without the external Express backend.
+//
+// Shapes match the consumer API contracts in lib/api/catalog.ts and
+// lib/api/recommendation.ts.
+
+import type {
+  ArtStyle,
+  Artist,
+  Backdrop,
+  Look,
+  PresetModel,
+  Product,
+  Vendor,
+} from "../consumer/types";
+
+const IMG = (id: string) =>
+  `https://images.unsplash.com/${id}?w=1200&q=80`;
+
+type ProductSeed = Omit<Product, "deliveryInfo" | "returnPolicy"> & {
+  deliveryInfo?: string;
+  returnPolicy?: string;
+};
+
+const DEFAULT_DELIVERY = "2–4 business days via Ghana Post.";
+const DEFAULT_RETURNS = "14-day returns on unworn items.";
+
+export const MOCK_PRODUCTS: Product[] = ([
+
+  {
+    id: "prod-1",
+    name: "Kente Accent Scarf",
+    vendorId: "v-1",
+    vendorName: "Maison d'Afrik",
+    priceGHS: 180,
+    images: [IMG("photo-1613876215075-276fd62c89a4"), IMG("photo-1713845784497-fe3d7ed176d8")],
+    sizes: ["One Size"],
+    colors: [{ name: "Gold", hex: "#C99" }],
+    category: "Accessories",
+    description: "Handwoven Kente accent scarf with heritage motifs.",
+    deliveryInfo: "2–4 business days via Ghana Post.",
+    returnPolicy: "14-day returns on unworn items.",
+    rating: 4.7,
+    styleTags: ["Kente", "Adinkra"],
+  },
+  {
+    id: "prod-2",
+    name: "Ankara Wrap Dress",
+    vendorId: "v-1",
+    vendorName: "Maison d'Afrik",
+    priceGHS: 320,
+    images: [IMG("photo-1601653233006-5c9fd30eab12"), IMG("photo-1760907949889-eb62b4fd9f75")],
+    sizes: ["S", "M", "L", "XL"],
+    colors: [
+      { name: "Indigo", hex: "#26345e" },
+      { name: "Coral", hex: "#d96a53" },
+    ],
+    category: "Dresses",
+    description: "Vibrant Ankara wrap dress, midi length.",
+    deliveryInfo: "2–4 business days via Ghana Post.",
+    returnPolicy: "14-day returns on unworn items.",
+    rating: 4.9,
+    styleTags: ["Ankara"],
+  },
+  {
+    id: "prod-3",
+    name: "Bespoke Agbada",
+    vendorId: "v-2",
+    vendorName: "Nords Atelier",
+    priceGHS: 850,
+    images: [IMG("photo-1663044022557-7d5d4c1d5318"), IMG("photo-1663043994777-7ed4b4e6cba3")],
+    sizes: ["Custom"],
+    colors: [{ name: "Green", hex: "#2f5d50" }],
+    category: "Tops",
+    description: "Made-to-measure men's Agbada set.",
+    deliveryInfo: "Made to order — 2–3 weeks.",
+    returnPolicy: "Bespoke items are final sale.",
+    artLinkedArtistId: "a-1",
+    rating: 4.8,
+  },
+  {
+    id: "prod-4",
+    name: "Adinkra Print Tote",
+    vendorId: "v-1",
+    vendorName: "Maison d'Afrik",
+    priceGHS: 95,
+    images: [IMG("photo-1756792339487-d044709b27f2"), IMG("photo-1574362098421-38623a3466b5")],
+    sizes: ["One Size"],
+    colors: [{ name: "Multi", hex: "#b5724f" }],
+    category: "Accessories",
+    description: "Cotton tote with Adinkra motifs.",
+    deliveryInfo: "2–4 business days via Ghana Post.",
+    returnPolicy: "14-day returns on unworn items.",
+    rating: 4.5,
+  },
+  {
+    id: "prod-5",
+    name: "Smock (Tani)",
+    vendorId: "v-2",
+    vendorName: "Nords Atelier",
+    priceGHS: 260,
+    images: [IMG("photo-1776880471112-708c211e6a4b"), IMG("photo-1687952622898-4e9514a710d5")],
+    sizes: ["S", "M", "L"],
+    colors: [{ name: "Natural", hex: "#cbb89a" }],
+    category: "Tops",
+    description: "Traditional Northern smock, hand-stitched.",
+    rating: 4.6,
+  },
+  {
+    id: "prod-6",
+    name: "Beaded Necklace Set",
+    vendorId: "v-3",
+    vendorName: "Lumière Beads",
+    priceGHS: 140,
+    images: [IMG("photo-1599643478518-a784e5dc4c8f"), IMG("photo-1611652022419-87b1dffb3088")],
+    sizes: ["One Size"],
+    colors: [{ name: "Multi", hex: "#caa24a" }],
+    category: "Accessories",
+    description: "Glass-bead necklace and earring set.",
+    deliveryInfo: "2–4 business days via Ghana Post.",
+    returnPolicy: "14-day returns on unworn items.",
+    rating: 4.4,
+  },
+  {
+    id: "prod-7",
+    name: "Kente Sneakers",
+    vendorId: "v-2",
+    vendorName: "Nords Atelier",
+    priceGHS: 410,
+    images: [IMG("photo-1757140448921-f120d58546dc"), IMG("photo-1549298916-b41d501d3772")],
+    sizes: ["40", "41", "42", "43", "44"],
+    colors: [{ name: "Teal", hex: "#2f8f8f" }],
+    category: "Shoes",
+    description: "Canvas sneakers with Kente heel tab.",
+    rating: 4.3,
+    stockBySize: { "40": true, "41": true, "42": false, "43": true, "44": true },
+  },
+  {
+    id: "prod-8",
+    name: "Bespoke Kaftan",
+    vendorId: "v-2",
+    vendorName: "Nords Atelier",
+    priceGHS: 540,
+    images: [IMG("photo-1620799139507-2a76f79a2f4d"), IMG("photo-1490481651871-ab68de25d43d")],
+    sizes: ["Custom"],
+    colors: [{ name: "Burgundy", hex: "#7a2e3a" }],
+    category: "Dresses",
+    description: "Flowing silk kaftan, custom measurements.",
+    deliveryInfo: "Made to order — 2–3 weeks.",
+    returnPolicy: "Bespoke items are final sale.",
+    artLinkedArtistId: "a-2",
+    rating: 4.9,
+  },
+  {
+    id: "prod-9",
+    name: "Festival Headwrap",
+    vendorId: "v-3",
+    vendorName: "Lumière Beads",
+    priceGHS: 110,
+    images: [IMG("photo-1601762603339-fd61e28b698a"), IMG("photo-1583845112203-293e9503598a")],
+    sizes: ["One Size"],
+    colors: [{ name: "Gold", hex: "#caa24a" }],
+    category: "Accessories",
+    description: "Gele-style festival headwrap.",
+    deliveryInfo: "2–4 business days via Ghana Post.",
+    returnPolicy: "14-day returns on unworn items.",
+    rating: 4.2,
+  },
+  {
+    id: "prod-10",
+    name: "Wax Print Cushion",
+    vendorId: "v-1",
+    vendorName: "Maison d'Afrik",
+    priceGHS: 75,
+    images: [IMG("photo-1584100936595-c0654b55a2e6"), IMG("photo-1567225557594-88d73e55f2cb")],
+    sizes: ["One Size"],
+    colors: [{ name: "Red", hex: "#b5402f" }],
+    category: "Home Decor",
+    description: "Wax-print cushion cover, 45x45cm.",
+    deliveryInfo: "3–5 business days via Ghana Post.",
+    returnPolicy: "14-day returns on unworn items.",
+    rating: 4.1,
+  },
+] as ProductSeed[]).map((p) => ({
+  ...p,
+  deliveryInfo: DEFAULT_DELIVERY,
+  returnPolicy: DEFAULT_RETURNS,
+}));
+
+export const MOCK_VENDORS: Vendor[] = [
+  {
+    id: "v-1",
+    name: "Maison d'Afrik",
+    logo: IMG("photo-1613876215075-276fd62c89a4"),
+    cover: IMG("photo-1769349661389-0737f39a8507"),
+    verified: true,
+    productsCount: 4,
+    looksCount: 12,
+    memberSince: "2019-03-01",
+    category: "Fashion",
+    bio: "Contemporary West African atelier fusing tailoring heritage with streetwear ease.",
+  },
+  {
+    id: "v-2",
+    name: "Nords Atelier",
+    logo: IMG("photo-1663044022557-7d5d4c1d5318"),
+    cover: IMG("photo-1490481651871-ab68de25d43d"),
+    verified: true,
+    productsCount: 4,
+    looksCount: 9,
+    memberSince: "2020-07-15",
+    category: "Fashion",
+    bio: "Bespoke menswear and hand-finished Agbada, made to measure in Accra.",
+  },
+  {
+    id: "v-3",
+    name: "Lumière Beads",
+    logo: IMG("photo-1599643478518-a784e5dc4c8f"),
+    cover: IMG("photo-1583845112203-293e9503598a"),
+    verified: false,
+    productsCount: 2,
+    looksCount: 5,
+    memberSince: "2021-11-02",
+    category: "Accessories",
+    bio: "Glass-bead jewellery and festival headwear, handmade in Kumasi.",
+  },
+];
+
+export const MOCK_ARTISTS: Artist[] = [
+  {
+    id: "a-1",
+    name: "Kwasi Beads",
+    portrait: IMG("photo-1531123897727-8f129e1688ce"),
+    bio: "Mixed-media artist exploring Adinkra symbolism through beadwork.",
+    location: "Kumasi, Ghana",
+    backdropsCount: 8,
+    tagline: "Wearable heritage.",
+    followersCount: "8.4k",
+    originalWorks: [
+      { id: "ow-1", title: "Adinkra Studies I", priceGHS: 1200, image: IMG("photo-1531123897727-8f129e1688ce") },
+      { id: "ow-2", title: "Glyph Field", priceGHS: 1500, image: IMG("photo-1547891657-e939d6676d8d") },
+    ],
+  },
+  {
+    id: "a-2",
+    name: "Ama Studio",
+    portrait: IMG("photo-1494790108377-be9c29b29330"),
+    bio: "Textile and print artist working between Accra and Lisbon.",
+    location: "Accra, Ghana",
+    backdropsCount: 11,
+    tagline: "Cloth as archive.",
+    followersCount: "12.1k",
+    originalWorks: [
+      { id: "ow-3", title: "Indigo Memory", priceGHS: 980, image: IMG("photo-1494790108377-be9c29b29330") },
+    ],
+  },
+  {
+    id: "a-3",
+    name: "Tani Weave",
+    portrait: IMG("photo-1506794778202-cad84cf45f1d"),
+    bio: "Northern smock weaver preserving Tani techniques.",
+    location: "Tamale, Ghana",
+    backdropsCount: 6,
+    tagline: "Threads of the north.",
+    followersCount: "5.2k",
+  },
+];
+
+export const MOCK_ART_STYLES: ArtStyle[] = [
+  { id: "as-1", name: "Adinkra", image: IMG("photo-1531123897727-8f129e1688ce") },
+  { id: "as-2", name: "Kente", image: IMG("photo-1613876215075-276fd62c89a4") },
+  { id: "as-3", name: "Ankara", image: IMG("photo-1601653233006-5c9fd30eab12") },
+  { id: "as-4", name: "Bogolan", image: IMG("photo-1490481651871-ab68de25d43d") },
+];
+
+export const MOCK_PRESET_MODELS: PresetModel[] = [
+  { id: "pm-1", name: "Studio Slim", thumb: IMG("photo-1521572163474-6864f9cf17ab") },
+  { id: "pm-2", name: "Studio Curvy", thumb: IMG("photo-1487412720507-e7ab37603c6f") },
+  { id: "pm-3", name: "Studio Tall", thumb: IMG("photo-1492288991661-058aa541ff43") },
+];
+
+export const MOCK_BACKDROPS: Backdrop[] = [
+  { id: "bd-1", name: "Accra Skyline", artistId: "a-3", artistName: "Tani Weave", image: IMG("photo-1772033596355-4d39c555fbd9"), premium: false },
+  { id: "bd-2", name: "Studio White", artistId: "a-2", artistName: "Ama Studio", image: IMG("photo-1781791430158-270e199e21a7"), premium: false },
+  { id: "bd-3", name: "Clay Wall", artistId: "a-1", artistName: "Kwasi Beads", image: IMG("photo-1765706727592-e9309fbb210a"), premium: false },
+  { id: "bd-4", name: "Festival Night", artistId: "a-3", artistName: "Tani Weave", image: IMG("photo-1540039155732-6761b54cb11a"), premium: true, priceGHS: 80 },
+  { id: "bd-5", name: "Savanna Dusk", artistId: "a-1", artistName: "Kwasi Beads", image: IMG("photo-1500530855697-b586d89ba3ee"), premium: true, priceGHS: 120 },
+];
+
+export const MOCK_LOOKS: Look[] = [
+  {
+    id: "lk-1",
+    userId: "u-1",
+    username: "ama.styles",
+    avatar: IMG("photo-1494790108377-be9c29b29330"),
+    image: IMG("photo-1490481651871-ab68de25d43d"),
+    caption: "Bespoke Agbada for the wedding season 🌿",
+    votes: 342,
+    leadProductId: "prod-3",
+    productIds: ["prod-3", "prod-9"],
+    backdropId: "bd-3",
+    createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+    isMine: false,
+  },
+  {
+    id: "lk-2",
+    userId: "u-2",
+    username: "nords",
+    avatar: IMG("photo-1506794778202-cad84cf45f1d"),
+    image: IMG("photo-1620799139507-2a76f79a2f4d"),
+    caption: "Kaftan season is open.",
+    votes: 221,
+    leadProductId: "prod-8",
+    productIds: ["prod-8"],
+    backdropId: "bd-2",
+    createdAt: new Date(Date.now() - 5 * 86400000).toISOString(),
+  },
+  {
+    id: "lk-3",
+    userId: "u-3",
+    username: "lumiere",
+    avatar: IMG("photo-1599643478518-a784e5dc4c8f"),
+    image: IMG("photo-1583845112203-293e9503598a"),
+    caption: "Festival headwrap + bead set 💛",
+    votes: 198,
+    leadProductId: "prod-9",
+    productIds: ["prod-9", "prod-6"],
+    backdropId: "bd-4",
+    createdAt: new Date(Date.now() - 7 * 86400000).toISOString(),
+  },
+  {
+    id: "lk-4",
+    userId: "u-4",
+    username: "kente.kid",
+    avatar: IMG("photo-1507003211169-0a1dd7228f2d"),
+    image: IMG("photo-1613876215075-276fd62c89a4"),
+    caption: "Scarf weather in Accra.",
+    votes: 156,
+    leadProductId: "prod-1",
+    productIds: ["prod-1"],
+    backdropId: "bd-5",
+    createdAt: new Date(Date.now() - 9 * 86400000).toISOString(),
+  },
+];
+
+// Backwards-compat alias used by middleware handler.
+export const MOCK_DB = {
+  products: MOCK_PRODUCTS,
+  vendors: MOCK_VENDORS,
+  artists: MOCK_ARTISTS,
+  artStyles: MOCK_ART_STYLES,
+  presetModels: MOCK_PRESET_MODELS,
+  backdrops: MOCK_BACKDROPS,
+  looks: MOCK_LOOKS,
+};

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+*.log
+uploads/
+
+# Debug artifacts
+debug_*.jpg
+debug_*.png

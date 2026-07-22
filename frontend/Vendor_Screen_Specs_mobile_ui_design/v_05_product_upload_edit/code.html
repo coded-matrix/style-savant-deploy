@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>New Product - Style Savant Vendor Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#a43c28",
+                        "success-green": "#28A745",
+                        "inverse-surface": "#2e3132",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d9dadb",
+                        "primary-container": "#00837c",
+                        "surface": "#f8f9fa",
+                        "tertiary": "#765700",
+                        "primary-fixed": "#8ff4eb",
+                        "tertiary-container": "#956e00",
+                        "on-primary-container": "#f3fffd",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "error": "#ba1a1a",
+                        "error-red": "#DC3545",
+                        "background": "#f8f9fa",
+                        "outline-variant": "#bdc9c7",
+                        "surface-bright": "#f8f9fa",
+                        "inverse-primary": "#72d7cf",
+                        "red-tint": "rgba(220, 53, 69, 0.05)",
+                        "on-primary-fixed": "#00201e",
+                        "on-primary": "#ffffff",
+                        "surface-dark": "#1A1D1F",
+                        "on-secondary-fixed": "#3f0400",
+                        "on-surface-variant": "#3d4948",
+                        "secondary-fixed-dim": "#ffb4a5",
+                        "outline": "#6d7978",
+                        "on-secondary-fixed-variant": "#842413",
+                        "surface-white": "#FFFFFF",
+                        "on-tertiary-fixed": "#261a00",
+                        "on-tertiary": "#ffffff",
+                        "text-grey": "#6C757D",
+                        "primary": "#006762",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "surface-tint": "#006a65",
+                        "surface-container-high": "#e7e8e9",
+                        "on-primary-fixed-variant": "#00504c",
+                        "tertiary-fixed-dim": "#fbbc00",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed": "#ffdad3",
+                        "on-secondary-container": "#711707",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-container": "#fffbff",
+                        "on-surface": "#191c1d",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "secondary-container": "#fd7e65",
+                        "primary-fixed-dim": "#72d7cf",
+                        "tertiary-fixed": "#ffdfa0",
+                        "teal-tint": "rgba(47, 156, 149, 0.05)"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-dash": "40px",
+                        "sidebar-width": "100px",
+                        "margin-card": "16px",
+                        "base": "4px",
+                        "margin-page": "20px",
+                        "gutter": "16px",
+                        "row-height-std": "52px",
+                        "header-system": "28px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "metadata": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "caption": ["Hanken Grotesk"],
+                        "title-page": ["Hanken Grotesk"],
+                        "display-hero": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "title-sm": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", { "lineHeight": "26px", "fontWeight": "700" }],
+                        "metadata": ["10px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "body-md": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "caption": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "title-page": ["15px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "display-hero": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "headline-lg": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "title-sm": ["13px", { "lineHeight": "18px", "fontWeight": "700" }],
+                        "headline-md": ["16px", { "lineHeight": "24px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #006762;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #006762;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pt-header-system md:pt-0 flex flex-col md:flex-row pb-[80px] md:pb-0">
+<!-- TopAppBar (Mobile) / Left Nav (Desktop) - Adjusted for Sub-page context -->
+<!-- Content Canvas prioritized, navigation shell suppressed as this is a transactional sub-page -->
+<!-- Header -->
+<header class="flex justify-between items-center px-margin-page w-full fixed top-0 z-50 bg-surface-dark h-[56px]">
+<div class="flex items-center gap-4">
+<button class="text-on-primary hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary">New Product</h1>
+</div>
+<div>
+<span class="text-on-primary font-body-md text-body-md opacity-80">Draft</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-[800px] mx-auto p-margin-page pt-[76px] space-y-6">
+<!-- Image Upload Zone -->
+<section class="bg-surface-white border border-outline-variant rounded-lg p-margin-card">
+<h2 class="font-title-sm text-title-sm text-on-surface mb-4">Product Images</h2>
+<div class="border-2 border-dashed border-primary bg-teal-tint rounded-lg flex flex-col items-center justify-center p-8 cursor-pointer hover:bg-surface-container-high transition-colors min-h-[200px]">
+<span class="material-symbols-outlined text-[48px] text-primary mb-2">add_photo_alternate</span>
+<p class="font-title-sm text-title-sm text-primary">+ Upload Images</p>
+<p class="font-caption text-caption text-on-surface-variant mt-2 text-center max-w-[300px]">Drag and drop high-quality JPEGs or PNGs. Minimum 800x800px recommended.</p>
+</div>
+<!-- AI Polish Strip -->
+<div class="mt-4 bg-teal-tint border border-primary/20 rounded-lg p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<div>
+<p class="font-title-sm text-title-sm text-on-surface">AI Image Polish</p>
+<p class="font-caption text-caption text-on-surface-variant">Clean your product photos automatically</p>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-title-sm text-title-sm hover:bg-surface-tint transition-colors whitespace-nowrap">
+                    Polish All
+                </button>
+</div>
+</section>
+<!-- Form Fields -->
+<section class="bg-surface-white border border-outline-variant rounded-lg p-margin-card space-y-5">
+<h2 class="font-title-sm text-title-sm text-on-surface mb-4">Product Details</h2>
+<div>
+<label class="block font-title-sm text-title-sm text-on-surface mb-1">Product Name</label>
+<input class="w-full bg-surface border border-surface-dim rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-md text-body-md" placeholder="e.g. Silk Evening Gown" type="text"/>
+</div>
+<div>
+<label class="block font-title-sm text-title-sm text-on-surface mb-1">Description</label>
+<textarea class="w-full bg-surface border border-surface-dim rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-md text-body-md" placeholder="Describe the material, fit, and style..." rows="4"></textarea>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-title-sm text-title-sm text-on-surface mb-1">Price (GHS)</label>
+<div class="relative">
+<span class="absolute left-3 top-2 text-on-surface-variant">₵</span>
+<input class="w-full bg-surface border border-surface-dim rounded pl-8 pr-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-md text-body-md" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div>
+<label class="block font-title-sm text-title-sm text-on-surface mb-1">Stock Quantity</label>
+<input class="w-full bg-surface border border-surface-dim rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-md text-body-md" placeholder="0" type="number"/>
+</div>
+</div>
+<div>
+<label class="block font-title-sm text-title-sm text-on-surface mb-1">Category</label>
+<select class="w-full bg-surface border border-surface-dim rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-md text-body-md appearance-none">
+<option disabled="" selected="" value="">Select Category...</option>
+<option>Dresses</option>
+<option>Tops</option>
+<option>Bottoms</option>
+<option>Accessories</option>
+</select>
+</div>
+</section>
+<!-- Variants & Customization -->
+<section class="bg-surface-white border border-outline-variant rounded-lg p-margin-card space-y-5">
+<h2 class="font-title-sm text-title-sm text-on-surface mb-4">Variants &amp; Sizing</h2>
+<div>
+<label class="block font-title-sm text-title-sm text-on-surface mb-2">Available Sizes</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant font-title-sm text-title-sm hover:bg-surface-container-high transition-colors">XS</button>
+<button class="px-4 py-2 rounded-full border-none bg-secondary text-on-secondary font-title-sm text-title-sm shadow-sm">S</button>
+<button class="px-4 py-2 rounded-full border-none bg-secondary text-on-secondary font-title-sm text-title-sm shadow-sm">M</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant font-title-sm text-title-sm hover:bg-surface-container-high transition-colors">L</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant font-title-sm text-title-sm hover:bg-surface-container-high transition-colors">XL</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant font-title-sm text-title-sm hover:bg-surface-container-high transition-colors">XXL</button>
+<button class="px-4 py-2 rounded-full border border-dashed border-primary text-primary font-title-sm text-title-sm hover:bg-teal-tint transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">add</span> Custom
+                    </button>
+</div>
+</div>
+<div class="h-px bg-surface-container w-full my-4"></div>
+<!-- Bespoke Toggle Row -->
+<div class="flex items-center justify-between p-3 rounded-lg border border-transparent transition-colors hover:bg-surface-container-low focus-within:bg-teal-tint focus-within:border-primary/20" id="bespoke-row">
+<div>
+<p class="font-title-sm text-title-sm text-on-surface">This item is made-to-measure</p>
+<p class="font-caption text-caption text-on-surface-variant">Require customers to submit measurements</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-surface-dim appearance-none cursor-pointer transition-all duration-300 z-10" id="bespoke-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-dim cursor-pointer transition-colors duration-300" for="bespoke-toggle"></label>
+</div>
+</div>
+</section>
+<!-- Spacer for fixed bottom actions -->
+<div class="h-24"></div>
+</main>
+<!-- Bottom Actions -->
+<div class="fixed bottom-0 w-full md:w-[calc(100%-100px)] md:ml-[100px] max-w-[800px] left-0 md:left-1/2 md:-translate-x-[calc(50%-50px)] bg-surface-white border-t border-outline-variant p-4 flex gap-4 z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<button class="flex-1 py-3 rounded-xl border border-outline text-on-surface font-title-sm text-title-sm bg-surface hover:bg-surface-container-high transition-colors text-center">
+            Save as Draft
+        </button>
+<button class="flex-1 py-3 rounded-xl bg-secondary text-on-secondary font-title-sm text-title-sm shadow-md hover:opacity-90 transition-opacity text-center flex items-center justify-center gap-2">
+            Publish Live <span class="material-symbols-outlined text-[18px]">publish</span>
+</button>
+</div>
+<script>
+        // Simple JS for toggle row highlight
+        const toggle = document.getElementById('bespoke-toggle');
+        const row = document.getElementById('bespoke-row');
+
+        toggle.addEventListener('change', function() {
+            if(this.checked) {
+                row.classList.add('bg-teal-tint', 'border-primary/20');
+                row.classList.remove('border-transparent');
+            } else {
+                row.classList.remove('bg-teal-tint', 'border-primary/20');
+                row.classList.add('border-transparent');
+            }
+        });
+    </script>
+</body></html>

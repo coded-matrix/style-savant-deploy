@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vendor Hub - Storefront Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#00837c",
+                        "inverse-primary": "#72d7cf",
+                        "primary": "#006762",
+                        "on-secondary-container": "#711707",
+                        "primary-fixed-dim": "#72d7cf",
+                        "text-grey": "#6C757D",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-dark": "#1A1D1F",
+                        "outline-variant": "#bdc9c7",
+                        "tertiary-fixed-dim": "#fbbc00",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "error-container": "#ffdad6",
+                        "red-tint": "rgba(220, 53, 69, 0.05)",
+                        "on-tertiary-container": "#fffbff",
+                        "success-green": "#28A745",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdfa0",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb4a5",
+                        "on-primary-container": "#f3fffd",
+                        "on-secondary-fixed-variant": "#842413",
+                        "surface-tint": "#006a65",
+                        "tertiary": "#765700",
+                        "inverse-on-surface": "#f0f1f2",
+                        "error-red": "#DC3545",
+                        "secondary": "#a43c28",
+                        "on-tertiary-fixed": "#261a00",
+                        "surface-bright": "#f8f9fa",
+                        "secondary-container": "#fd7e65",
+                        "secondary-fixed": "#ffdad3",
+                        "on-secondary-fixed": "#3f0400",
+                        "surface-container-low": "#f3f4f5",
+                        "on-surface": "#191c1d",
+                        "on-background": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#956e00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#3d4948",
+                        "on-primary-fixed": "#00201e",
+                        "teal-tint": "rgba(47, 156, 149, 0.05)",
+                        "surface-variant": "#e1e3e4",
+                        "surface-white": "#FFFFFF",
+                        "surface-dim": "#d9dadb",
+                        "outline": "#6d7978",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "background": "#f8f9fa",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2e3132",
+                        "primary-fixed": "#8ff4eb",
+                        "on-primary-fixed-variant": "#00504c",
+                        "surface": "#f8f9fa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-dash": "40px",
+                        "gutter": "16px",
+                        "margin-page": "20px",
+                        "margin-card": "16px",
+                        "sidebar-width": "100px",
+                        "header-system": "28px",
+                        "base": "4px",
+                        "row-height-std": "52px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "metadata": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "caption": ["Hanken Grotesk"],
+                        "title-page": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-hero": ["Hanken Grotesk"],
+                        "title-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", { "lineHeight": "26px", "fontWeight": "700" }],
+                        "headline-md": ["16px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "metadata": ["10px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "headline-lg": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "caption": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "title-page": ["15px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "body-md": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "display-hero": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "title-sm": ["13px", { "lineHeight": "18px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased flex h-screen overflow-hidden">
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="hidden md:flex flex-col h-full bg-surface-container-lowest dark:bg-surface-dark border-r border-outline-variant w-sidebar-width z-40 py-4 shrink-0 transition-all duration-300">
+<div class="flex flex-col items-center justify-center mb-8 px-2">
+<img alt="Vendor Avatar" class="w-12 h-12 rounded-full mb-2 object-cover border-2 border-primary" data-alt="A clean, minimalist abstract logo for a fashion forward vendor, using geometric shapes in deep teal and stark white, high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0MfciTCVi1-qGjN0vc92TOyUbQUqC3qM2H8jPXZ8kijIssnA9nlyEWjuHUX_-7ulntv1-NkDcY1v4XtXA-nZGLBzeyVuLbK0cKbTCHEKh1GNVQOlKzVdwALiCvxUqJSjbT6IoBExxGtZPM6WoWeRg4-y4Y-J-SKIeESaOT5hH3O_LmliwjEr_kvriE3djzp0E4MRKXgqRtGK4W3ganhe7WXjP1HRNNTS5jq3PnwIJD1j-qniO7EEnpyK4wlfnoEtEWgOkGjOKRMH4"/>
+<h2 class="text-title-sm font-title-sm text-center text-primary dark:text-primary-fixed-dim">Fashion Forward Co.</h2>
+<p class="text-caption font-caption text-text-grey text-center">Platinum Vendor</p>
+<p class="text-metadata font-metadata text-text-grey text-center mt-1">ID: 99283</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Account Settings (Active based on semantic intent of Storefront Settings) -->
+<a class="flex flex-col items-center justify-center py-3 bg-teal-tint text-primary font-bold border-r-4 border-primary hover:bg-teal-tint transition-colors opacity-80" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-caption font-caption text-center px-1">Account Settings</span>
+</a>
+<!-- Payouts -->
+<a class="flex flex-col items-center justify-center py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="text-caption font-caption text-center px-1">Payouts</span>
+</a>
+<!-- Shipping Rules -->
+<a class="flex flex-col items-center justify-center py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">local_shipping</span>
+<span class="text-caption font-caption text-center px-1">Shipping Rules</span>
+</a>
+<!-- Support -->
+<a class="flex flex-col items-center justify-center py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">help</span>
+<span class="text-caption font-caption text-center px-1">Support</span>
+</a>
+<!-- Legal -->
+<a class="flex flex-col items-center justify-center py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">policy</span>
+<span class="text-caption font-caption text-center px-1">Legal</span>
+</a>
+</nav>
+</aside>
+<div class="flex-1 flex flex-col overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-gutter h-header-dash w-full z-50 bg-surface-dark dark:bg-surface-dark top-0 shrink-0">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed dark:text-primary-fixed-dim">store</span>
+<h1 class="text-title-page font-title-page font-bold text-on-primary-container dark:text-inverse-primary">Vendor Hub</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2 bg-teal-tint px-3 py-1 rounded-full border border-primary/20">
+<span class="material-symbols-outlined text-primary-fixed text-[18px]">account_balance_wallet</span>
+<span class="text-body-md font-body-md text-primary-fixed font-bold">$12,450.00</span>
+</div>
+<img alt="Vendor Profile" class="w-8 h-8 rounded-full border-2 border-primary-fixed object-cover" data-alt="A clean, minimalist abstract logo for a fashion forward vendor, using geometric shapes in deep teal and stark white, high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw9VGhxB9tsAP79WS14uuyUcg_04V0XJs2CARwceXtvKjM_Atk7iKYOH8LYgybeFRDKQscO8kW8f-cAWigvEdw20MKYXcp7Eqk0zdmqoK2DShLGY0dSyHvQZsloydXnTsZSbvajD88YPy2OUqakKqFV4u58wybih0Y79amIu7-DlyR622t4pyrQnNfEJftkXW_l2kA4Nn3xbRM_Tp88ajSgq-gguU8X_8kG6DFAZLciQeMf-Ds8j-QS-uIrAxGtpQbeOsQwwXfURi8"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto p-margin-page md:p-8 bg-surface-bright">
+<div class="max-w-4xl mx-auto space-y-6">
+<!-- Page Header -->
+<div>
+<h2 class="text-headline-lg md:text-display-hero font-headline-lg md:font-display-hero text-on-surface">Storefront Settings</h2>
+<p class="text-body-md font-body-md text-text-grey mt-1">Customize how your brand appears to customers on the marketplace.</p>
+</div>
+<!-- Form Container -->
+<form class="space-y-6">
+<!-- Media Uploads Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Cover Image -->
+<div class="lg:col-span-2 bg-surface-white border border-outline-variant rounded-lg p-margin-card">
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2">Cover Image</h3>
+<p class="text-caption font-caption text-text-grey mb-4">Recommended size: 1200x400px. Max 5MB.</p>
+<div class="w-full h-48 border-2 border-dashed border-primary bg-teal-tint rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-primary-container/10 transition-colors relative overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-multiply" data-alt="A subtle, high-end fashion texture, perhaps a close-up of woven fabric or a muted abstract wash of deep teal and coral, suitable as a background banner placeholder." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwJdv0YXyMBshMN9tFqMJOyl-JoPk47BBmKD706FIAdXg2ZQl_JMNZQKVeKuKzJ5m1XM2RRRpKZt6J_WAc_bZIfHzmjHdRFSubQb8QVgfZn7CVe0SfrNo2FE1VjdjRrAuhz25i9TgTE7D0SgBXIac-vNBgZ4sUbm1tjYl6x_hj9BJhnSgmGvWeAfPSrFH4yTECfY2gwFFzShZ7NbM4h-9gMflcoV59404ryn9rxmqFYVeOoqlcn2x9faTP9uvGYqhIPc2kUe5ANGCb')"></div>
+<span class="material-symbols-outlined text-primary text-4xl mb-2 relative z-10">cloud_upload</span>
+<span class="text-body-md font-body-md text-primary font-bold relative z-10">Upload Cover Image</span>
+</div>
+</div>
+<!-- Circular Logo -->
+<div class="bg-surface-white border border-outline-variant rounded-lg p-margin-card flex flex-col items-center justify-center">
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2 w-full text-left">Brand Logo</h3>
+<p class="text-caption font-caption text-text-grey mb-4 w-full text-left">Square image, min 400x400px.</p>
+<div class="w-32 h-32 border-2 border-dashed border-primary bg-teal-tint rounded-full flex flex-col items-center justify-center cursor-pointer hover:bg-primary-container/10 transition-colors relative overflow-hidden group mb-2">
+<img class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity" data-alt="A sophisticated, minimalist 'FF' monogram logo in pure white against a stark black background, representing Fashion Forward Co." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvZHlBjaVgpUW1Dmn7nASijZrE74fUXBwqIaesaBsLzTIue-5hD6-SHZmRFRaViCbmdn3OIrGW8QjJ5wFEPlPCEUOVlYUCTNrmgtaAbonDygARMBsNBbxLwttomsgy7dunm-nQwF7CFdwa5samjZseJvkwS7ruPmSyzwPj9uKfGKQKEHM7msSM_6GBobnZfguDZiLadXaiCYWFfAz5vW-3mfs2BHkgtZkY4F8pZ9iI7IWbrJwgacxboe8C0I0s2c_m5YfLc2Z36ztG"/>
+<span class="material-symbols-outlined text-primary text-3xl relative z-10">add_photo_alternate</span>
+</div>
+<button class="text-caption font-caption text-primary hover:underline mt-2" type="button">Change Logo</button>
+</div>
+</div>
+<!-- Business Details -->
+<div class="bg-surface-white border border-outline-variant rounded-lg p-margin-card space-y-4">
+<h3 class="text-headline-md font-headline-md text-on-surface border-b border-surface-variant pb-2">Business Details</h3>
+<div>
+<label class="block text-title-sm font-title-sm text-on-surface mb-1" for="bio">Business Bio</label>
+<p class="text-caption font-caption text-text-grey mb-2">Tell your story. This appears on your public profile.</p>
+<textarea class="w-full bg-surface-bright border border-outline-variant rounded px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" id="bio" placeholder="e.g., Founded in 2023, we curate sustainable avant-garde fashion..." rows="4">Fashion Forward Co. is a premier curator of modern, minimalist apparel designed for the urban professional. We source sustainable materials to create timeless pieces.</textarea>
+</div>
+<div>
+<label class="block text-title-sm font-title-sm text-on-surface mb-1">Category Tags</label>
+<p class="text-caption font-caption text-text-grey mb-2">Help customers find you. Max 5 tags.</p>
+<div class="flex flex-wrap gap-2 mb-2">
+<span class="inline-flex items-center px-3 py-1 bg-secondary-container text-on-secondary rounded-full text-caption font-caption font-bold">
+                                    Minimalist
+                                    <button class="ml-1 text-on-secondary hover:text-white" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center px-3 py-1 bg-secondary-container text-on-secondary rounded-full text-caption font-caption font-bold">
+                                    Sustainable
+                                    <button class="ml-1 text-on-secondary hover:text-white" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center px-3 py-1 bg-surface-variant text-text-grey rounded-full text-caption font-caption">
+                                    Womenswear
+                                    <button class="ml-1 hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+</div>
+<div class="flex gap-2">
+<input class="flex-1 bg-surface-bright border border-outline-variant rounded px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="Add a tag..." type="text"/>
+<button class="bg-surface-variant text-on-surface px-4 py-2 rounded text-body-md font-body-md hover:bg-surface-dim transition-colors" type="button">Add</button>
+</div>
+</div>
+</div>
+<!-- Social Links -->
+<div class="bg-surface-white border border-outline-variant rounded-lg p-margin-card space-y-4">
+<h3 class="text-headline-md font-headline-md text-on-surface border-b border-surface-variant pb-2">Social Links</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="flex items-center gap-2 text-title-sm font-title-sm text-on-surface mb-1">
+<span class="material-symbols-outlined text-[18px] text-text-grey">language</span> Website
+                                </label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="https://" type="url" value="https://fashionforward.co"/>
+</div>
+<div>
+<label class="flex items-center gap-2 text-title-sm font-title-sm text-on-surface mb-1">
+<span class="material-symbols-outlined text-[18px] text-text-grey">photo_camera</span> Instagram
+                                </label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="@handle" type="text" value="@fashionforward"/>
+</div>
+<div>
+<label class="flex items-center gap-2 text-title-sm font-title-sm text-on-surface mb-1">
+<span class="material-symbols-outlined text-[18px] text-text-grey">music_note</span> TikTok
+                                </label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="@handle" type="text"/>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex justify-end gap-4 pt-4 border-t border-outline-variant">
+<button class="px-6 py-2 border border-primary text-primary rounded-lg text-title-sm font-title-sm hover:bg-teal-tint transition-colors" type="button">Cancel</button>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-lg text-title-sm font-title-sm font-bold hover:bg-surface-tint transition-colors shadow-sm" type="submit">Save Changes</button>
+</div>
+</form>
+</div>
+<!-- Bottom spacer for mobile nav -->
+<div class="h-24 md:hidden"></div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<!-- Suppressed based on logic: This is a settings sub-page, not a top-level destination. -->
+</body></html>

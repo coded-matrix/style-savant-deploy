@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Detail + Tracking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#00837c",
+                        "inverse-primary": "#72d7cf",
+                        "primary": "#006762",
+                        "on-secondary-container": "#711707",
+                        "primary-fixed-dim": "#72d7cf",
+                        "text-grey": "#6C757D",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-dark": "#1A1D1F",
+                        "outline-variant": "#bdc9c7",
+                        "tertiary-fixed-dim": "#fbbc00",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "error-container": "#ffdad6",
+                        "red-tint": "rgba(220, 53, 69, 0.05)",
+                        "on-tertiary-container": "#fffbff",
+                        "success-green": "#28A745",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdfa0",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb4a5",
+                        "on-primary-container": "#f3fffd",
+                        "on-secondary-fixed-variant": "#842413",
+                        "surface-tint": "#006a65",
+                        "tertiary": "#765700",
+                        "inverse-on-surface": "#f0f1f2",
+                        "error-red": "#DC3545",
+                        "secondary": "#a43c28",
+                        "on-tertiary-fixed": "#261a00",
+                        "surface-bright": "#f8f9fa",
+                        "secondary-container": "#fd7e65",
+                        "secondary-fixed": "#ffdad3",
+                        "on-secondary-fixed": "#3f0400",
+                        "surface-container-low": "#f3f4f5",
+                        "on-surface": "#191c1d",
+                        "on-background": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#956e00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#3d4948",
+                        "on-primary-fixed": "#00201e",
+                        "teal-tint": "rgba(47, 156, 149, 0.05)",
+                        "surface-variant": "#e1e3e4",
+                        "surface-white": "#FFFFFF",
+                        "surface-dim": "#d9dadb",
+                        "outline": "#6d7978",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "background": "#f8f9fa",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2e3132",
+                        "primary-fixed": "#8ff4eb",
+                        "on-primary-fixed-variant": "#00504c",
+                        "surface": "#f8f9fa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-dash": "40px",
+                        "gutter": "16px",
+                        "margin-page": "20px",
+                        "margin-card": "16px",
+                        "sidebar-width": "100px",
+                        "header-system": "28px",
+                        "base": "4px",
+                        "row-height-std": "52px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "metadata": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "caption": ["Hanken Grotesk"],
+                        "title-page": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-hero": ["Hanken Grotesk"],
+                        "title-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", {"lineHeight": "26px", "fontWeight": "700"}],
+                        "headline-md": ["16px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "metadata": ["10px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "headline-lg": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "caption": ["11px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "title-page": ["15px", {"lineHeight": "20px", "fontWeight": "700"}],
+                        "body-md": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "display-hero": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "title-sm": ["13px", {"lineHeight": "18px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background h-full flex flex-col md:flex-row font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar (Mobile & Desktop) -->
+<header class="bg-surface-dark dark:bg-surface-dark docked full-width top-0 text-headline-lg font-headline-lg text-title-page font-title-page font-bold text-on-primary-container dark:text-inverse-primary flat no shadows flex justify-between items-center px-gutter h-header-dash w-full z-50 md:hidden sticky top-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed dark:text-primary-fixed-dim">store</span>
+<span class="text-headline-lg-mobile font-headline-lg-mobile">Vendor Hub</span>
+</div>
+<div class="flex items-center">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A tightly cropped, high-quality photograph of a professional vendor's face, well-lit with a bright, neutral background. The subject is wearing modern, stylish but understated business attire. The lighting is soft and flattering, creating a polished look suitable for a premium dashboard avatar in a modern fashion e-commerce application. The aesthetic is clean and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADRxdXBhxYB4wb3HP3wxA7xX3GM6dKaBiD2MgddL5m7wVePnjhZS5gUhMlKwHlMHW7SiIaAN5XGHtJH_7M15yObkxZ2ti1ROc-0GZdg1PX1lr8luoT0inPvsVoE4t_iPcZlbTNQprGkfxxNZ-mhIAZX0Dxa9cB8zF9N8TDLM_zg85gfBFKrt1LQoqbzl5xmxkEMJSDS3XDHVY67_Ly4X1ADR107ylFvoe_X3VWgFAbAG5vp8ARPxWi5JSyJK91yDqhIbjjqH4uYX_W"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop) -->
+<nav class="hidden md:flex flex-col h-full py-4 bg-surface-container-lowest dark:bg-surface-dark text-primary dark:text-primary-fixed-dim text-title-sm font-title-sm h-full w-sidebar-width border-r border-outline-variant flat no shadows fixed left-0 top-0 z-40 overflow-y-auto">
+<div class="px-4 mb-8 flex flex-col items-start">
+<div class="w-12 h-12 rounded-full bg-surface-variant overflow-hidden mb-2">
+<img class="w-full h-full object-cover" data-alt="A tightly cropped, high-quality photograph of a professional vendor's face, well-lit with a bright, neutral background. The subject is wearing modern, stylish but understated business attire. The lighting is soft and flattering, creating a polished look suitable for a premium dashboard avatar in a modern fashion e-commerce application. The aesthetic is clean and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw2c9Zit7FRuZFixINWHKd57TBz-tSujyluOhrdOXeJ5ABdEtA7oTMj1_IvALCJBPTqHlBAOA2KwUJUPENs9dZp8iGu81nnpO0Ep-ssFWWB0LKqaOTGY3R_d-FlTDnLC07InU1z2h9GE6FqQffwcDqoDkQB3pymzkhUzDCTl4UYKgpUW5lplgRG4np_sGAsMsNbJU4M-mZG6MsGmAB35Go924MmNYql1-ikyAX9J-Gja1H6e06UXam4WoCSu87pw7I9SyS8oq1vDRq"/>
+</div>
+<div class="text-headline-md font-headline-md text-primary truncate w-full">Fashion Forward Co.</div>
+<div class="text-body-md font-body-md text-on-surface-variant truncate w-full">Platinum Vendor</div>
+<div class="text-metadata font-metadata text-text-grey truncate w-full">ID: 99283</div>
+</div>
+<div class="flex-1 flex flex-col gap-1 w-full px-2">
+<!-- Non-matching items get inactive styling -->
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors text-center w-full" href="#">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span class="text-caption font-caption w-full truncate">Account Settings</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors text-center w-full" href="#">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="text-caption font-caption w-full truncate">Payouts</span>
+</a>
+<!-- Intent match: Order Detail relates to Shipping Rules / Orders. Highlighting Shipping Rules based on context. -->
+<a class="flex flex-col items-center justify-center p-3 rounded-lg bg-teal-tint text-primary font-bold border-r-4 border-primary transition-colors text-center w-full" href="#">
+<span class="material-symbols-outlined mb-1">local_shipping</span>
+<span class="text-caption font-caption w-full truncate">Shipping Rules</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors text-center w-full" href="#">
+<span class="material-symbols-outlined mb-1">help</span>
+<span class="text-caption font-caption w-full truncate">Support</span>
+</a>
+<a class="flex flex-col items-center justify-center p-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors text-center w-full" href="#">
+<span class="material-symbols-outlined mb-1">policy</span>
+<span class="text-caption font-caption w-full truncate">Legal</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 w-full md:ml-sidebar-width p-margin-page md:p-6 lg:p-8 flex flex-col gap-6 max-w-[1440px] mx-auto pb-24 md:pb-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<button class="p-1 rounded-full hover:bg-surface-variant transition-colors flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface">Order #ORD-77291</h1>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-caption font-caption px-2 py-1 rounded-md ml-2 flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">pending_actions</span>
+                        Processing
+                    </span>
+</div>
+<p class="text-body-md font-body-md text-text-grey pl-8">Placed on Oct 24, 2023 • 14:32 GMT</p>
+</div>
+<div class="flex gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none border border-primary text-primary bg-surface-white px-4 py-2 rounded-xl text-title-sm font-title-sm hover:bg-teal-tint transition-colors">
+                    Print Invoice
+                </button>
+<button class="flex-1 md:flex-none bg-primary text-on-primary px-4 py-2 rounded-xl text-title-sm font-title-sm hover:bg-surface-tint transition-colors shadow-sm">
+                    Mark Confirmed
+                </button>
+</div>
+</div>
+<!-- Status Timeline -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-margin-card">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-6">Fulfillment Status</h2>
+<div class="relative flex items-center justify-between w-full">
+<!-- Line background -->
+<div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-1 bg-surface-variant z-0 rounded-full"></div>
+<!-- Active Line -->
+<div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-1/3 h-1 bg-primary z-0 rounded-full"></div>
+<!-- Steps -->
+<div class="relative z-10 flex flex-col items-center gap-2 w-1/4">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">receipt_long</span>
+</div>
+<span class="text-caption font-caption text-on-surface text-center font-bold">Placed</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 w-1/4">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">inventory_2</span>
+</div>
+<span class="text-caption font-caption text-primary text-center font-bold">Processing</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 w-1/4">
+<div class="w-8 h-8 rounded-full bg-surface-white border-2 border-surface-variant text-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px;">local_shipping</span>
+</div>
+<span class="text-caption font-caption text-text-grey text-center">Shipped</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 w-1/4">
+<div class="w-8 h-8 rounded-full bg-surface-white border-2 border-surface-variant text-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px;">check_circle</span>
+</div>
+<span class="text-caption font-caption text-text-grey text-center">Delivered</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column: Items & Details -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Items List -->
+<div class="bg-surface-white rounded-xl border border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-surface-variant bg-surface-bright flex justify-between items-center">
+<h2 class="text-headline-md font-headline-md text-on-surface">Order Items (2)</h2>
+</div>
+<div class="flex flex-col">
+<!-- Item 1 -->
+<div class="p-4 border-b border-surface-variant flex gap-4 items-start hover:bg-surface-bright transition-colors">
+<div class="w-20 h-20 rounded-lg bg-surface-variant overflow-hidden shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A high-quality, perfectly lit product shot of a beautifully crafted Kente cloth maxi skirt. The fabric features vibrant, traditional geometric patterns in gold, red, green, and black. The item is displayed flat against a clean, bright, light-grey background. The lighting is even, casting soft shadows, ideal for a premium fashion e-commerce catalog." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFzRVRS7z3OKOqjATQGPm_XhGl1Bh_XMTdNuLTmpwiegeqsjdCSKzKDVk4pmQhaDh3URHp6QvpgJ6Bwkbakl_IEZudc0L4xlhWSHu74qg3AoTKoTSVWyBZiPrNfsRJ00LNVZBqP5Lzul0QdwRStD8yLIJ7OR6W4I09x0YDvFyIGhI4pzUeFqD3Rlpm-CiCmCxX9lk4lnzFEnOg4b3I3tr7GqqtKBYBss3aeLnhahUvmpet9YF0HR0cNgTuoo4OocGN1gpfgAFsj-JQ"/>
+</div>
+<div class="flex-1 flex flex-col">
+<div class="flex justify-between items-start">
+<h3 class="text-title-sm font-title-sm text-on-surface">Bespoke Kente Maxi Skirt</h3>
+<span class="text-title-sm font-title-sm text-on-surface">GHS 850.00</span>
+</div>
+<p class="text-body-md font-body-md text-text-grey mb-2">Variant: Custom Fit • SKU: KNT-MX-001</p>
+<div class="flex items-center gap-2">
+<span class="bg-surface-container text-on-surface-variant text-caption font-caption px-2 py-1 rounded-md">Qty: 1</span>
+</div>
+</div>
+</div>
+<!-- Bespoke Measurement Section (Tied to Item 1) -->
+<div class="bg-teal-tint p-4 border-b border-surface-variant flex flex-col gap-3">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" style="font-size: 18px;">straighten</span>
+<h4 class="text-title-sm font-title-sm">Custom Measurements Provided</h4>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-surface-white p-2 rounded border border-outline-variant">
+<span class="text-metadata font-metadata text-text-grey block">Waist</span>
+<span class="text-body-md font-body-md text-on-surface font-bold">28"</span>
+</div>
+<div class="bg-surface-white p-2 rounded border border-outline-variant">
+<span class="text-metadata font-metadata text-text-grey block">Hips</span>
+<span class="text-body-md font-body-md text-on-surface font-bold">40"</span>
+</div>
+<div class="bg-surface-white p-2 rounded border border-outline-variant">
+<span class="text-metadata font-metadata text-text-grey block">Length</span>
+<span class="text-body-md font-body-md text-on-surface font-bold">42"</span>
+</div>
+<div class="bg-surface-white p-2 rounded border border-outline-variant">
+<span class="text-metadata font-metadata text-text-grey block">Hem</span>
+<span class="text-body-md font-body-md text-on-surface font-bold">Flared</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-4 flex gap-4 items-start hover:bg-surface-bright transition-colors">
+<div class="w-20 h-20 rounded-lg bg-surface-variant overflow-hidden shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A high-quality, perfectly lit product shot of a modern, minimalist woven tote bag made from sustainable materials. The bag is a neutral beige tone with subtle texture. It is displayed flat against a clean, bright, light-grey background. The lighting is even, casting soft shadows, ideal for a premium fashion e-commerce catalog." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzHTI1lIR2qFR0JlX-Sh7a3-tsfr0-jdG_JjBx4MQ2mcOkqq4o3is7X-EvmgtY6-hEFRhFh-AUvfIlCU2-CJcprae2gVspnBdUY3hvUamL0p9D7wvx6dQ2wCxbnYBsweKkEnMWhjlDVGY8WbgV31tLjGaj-qC4hIte1F8xK9_epOkjfGBy9FNw07kSrzgAOmlvh49KNVumUniqnQrUPonZIzt8ecVtZf9-BFSFcUmvIdhz76M2VUnTxfHtMMVGdV56ns2uatywOhzG"/>
+</div>
+<div class="flex-1 flex flex-col">
+<div class="flex justify-between items-start">
+<h3 class="text-title-sm font-title-sm text-on-surface">Artisan Woven Tote</h3>
+<span class="text-title-sm font-title-sm text-on-surface">GHS 250.00</span>
+</div>
+<p class="text-body-md font-body-md text-text-grey mb-2">Variant: Natural • SKU: TTE-NV-002</p>
+<div class="flex items-center gap-2">
+<span class="bg-surface-container text-on-surface-variant text-caption font-caption px-2 py-1 rounded-md">Qty: 1</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Shipping & Action -->
+<div class="flex flex-col gap-6">
+<!-- Customer Details -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-margin-card">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-text-grey">person</span>
+                        Customer
+                    </h2>
+<div class="flex flex-col gap-4">
+<div>
+<div class="text-title-sm font-title-sm text-on-surface">Ama Osei</div>
+<div class="text-body-md font-body-md text-text-grey">ama.osei@example.com</div>
+<div class="text-body-md font-body-md text-text-grey">+233 24 123 4567</div>
+</div>
+<div class="h-px bg-surface-variant w-full"></div>
+<div>
+<div class="text-title-sm font-title-sm text-on-surface mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-text-grey" style="font-size: 16px;">location_on</span>
+                                Shipping Address
+                            </div>
+<div class="text-body-md font-body-md text-text-grey">
+                                14 Mango Tree Avenue<br/>
+                                East Legon<br/>
+                                Accra, Greater Accra<br/>
+                                Ghana
+                            </div>
+</div>
+</div>
+</div>
+<!-- Shipping / Tracking Input -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-margin-card border-l-4 border-l-secondary-container">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container">local_shipping</span>
+                        Fulfillment Setup
+                    </h2>
+<p class="text-body-md font-body-md text-text-grey mb-4">Enter tracking details to notify the customer.</p>
+<div class="flex flex-col gap-4">
+<div>
+<label class="block text-caption font-caption text-on-surface mb-1">Carrier</label>
+<select class="w-full bg-surface-bright border border-outline-variant rounded-lg px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+<option>Ghana Post EMS</option>
+<option>DHL Express</option>
+<option>Local Courier</option>
+</select>
+</div>
+<div>
+<label class="block text-caption font-caption text-on-surface mb-1">Tracking Number</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-lg px-3 py-2 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="e.g. EE123456789GH" type="text"/>
+</div>
+<button class="w-full bg-secondary-container text-on-primary px-4 py-2 rounded-xl text-title-sm font-title-sm hover:opacity-90 transition-opacity shadow-sm flex justify-center items-center gap-2 mt-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">send</span>
+                            Mark as Shipped
+                        </button>
+</div>
+</div>
+<!-- Payment Summary -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-margin-card">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-4">Payment Summary</h2>
+<div class="flex flex-col gap-2 text-body-md font-body-md">
+<div class="flex justify-between">
+<span class="text-text-grey">Subtotal</span>
+<span class="text-on-surface">GHS 1,100.00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-text-grey">Shipping (Standard)</span>
+<span class="text-on-surface">GHS 50.00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-text-grey">Taxes</span>
+<span class="text-on-surface">GHS 0.00</span>
+</div>
+<div class="h-px bg-surface-variant w-full my-1"></div>
+<div class="flex justify-between text-title-sm font-title-sm">
+<span class="text-on-surface">Total</span>
+<span class="text-primary">GHS 1,150.00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 bg-surface dark:bg-surface-dark bg-surface dark:bg-surface-dark text-primary dark:text-primary-fixed-dim text-caption font-caption text-headline-md font-headline-md text-primary fixed bottom-0 w-full z-50 border-t border-outline-variant dark:border-surface-variant flat no shadows fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 bg-surface dark:bg-surface-dark border-t-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="text-caption font-caption">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined mb-1">inventory_2</span>
+<span class="text-caption font-caption">Products</span>
+</a>
+<!-- Intent match for Order Detail -> Orders -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 hover:bg-teal-tint transition-all scale-90 duration-150" href="#">
+<span class="material-symbols-outlined mb-1">shopping_cart</span>
+<span class="text-caption font-caption">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined mb-1">campaign</span>
+<span class="text-caption font-caption">Campaigns</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined mb-1">menu</span>
+<span class="text-caption font-caption">More</span>
+</a>
+</nav>
+</body></html>

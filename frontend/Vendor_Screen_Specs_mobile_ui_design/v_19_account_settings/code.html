@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Account Settings - Vendor Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "primary-container": "#00837c",
+                            "inverse-primary": "#72d7cf",
+                            "primary": "#006762",
+                            "on-secondary-container": "#711707",
+                            "primary-fixed-dim": "#72d7cf",
+                            "text-grey": "#6C757D",
+                            "surface-container-high": "#e7e8e9",
+                            "surface-dark": "#1A1D1F",
+                            "outline-variant": "#bdc9c7",
+                            "tertiary-fixed-dim": "#fbbc00",
+                            "surface-container-highest": "#e1e3e4",
+                            "surface-container": "#edeeef",
+                            "error-container": "#ffdad6",
+                            "red-tint": "rgba(220, 53, 69, 0.05)",
+                            "on-tertiary-container": "#fffbff",
+                            "success-green": "#28A745",
+                            "on-secondary": "#ffffff",
+                            "tertiary-fixed": "#ffdfa0",
+                            "on-error": "#ffffff",
+                            "error": "#ba1a1a",
+                            "secondary-fixed-dim": "#ffb4a5",
+                            "on-primary-container": "#f3fffd",
+                            "on-secondary-fixed-variant": "#842413",
+                            "surface-tint": "#006a65",
+                            "tertiary": "#765700",
+                            "inverse-on-surface": "#f0f1f2",
+                            "error-red": "#DC3545",
+                            "secondary": "#a43c28",
+                            "on-tertiary-fixed": "#261a00",
+                            "surface-bright": "#f8f9fa",
+                            "secondary-container": "#fd7e65",
+                            "secondary-fixed": "#ffdad3",
+                            "on-secondary-fixed": "#3f0400",
+                            "surface-container-low": "#f3f4f5",
+                            "on-surface": "#191c1d",
+                            "on-background": "#191c1d",
+                            "on-primary": "#ffffff",
+                            "tertiary-container": "#956e00",
+                            "surface-container-lowest": "#ffffff",
+                            "on-tertiary": "#ffffff",
+                            "on-surface-variant": "#3d4948",
+                            "on-primary-fixed": "#00201e",
+                            "teal-tint": "rgba(47, 156, 149, 0.05)",
+                            "surface-variant": "#e1e3e4",
+                            "surface-white": "#FFFFFF",
+                            "surface-dim": "#d9dadb",
+                            "outline": "#6d7978",
+                            "on-tertiary-fixed-variant": "#5c4300",
+                            "background": "#f8f9fa",
+                            "on-error-container": "#93000a",
+                            "inverse-surface": "#2e3132",
+                            "primary-fixed": "#8ff4eb",
+                            "on-primary-fixed-variant": "#00504c",
+                            "surface": "#f8f9fa"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "header-dash": "40px",
+                            "gutter": "16px",
+                            "margin-page": "20px",
+                            "margin-card": "16px",
+                            "sidebar-width": "100px",
+                            "header-system": "28px",
+                            "base": "4px",
+                            "row-height-std": "52px"
+                    },
+                    "fontFamily": {
+                            "headline-lg-mobile": ["Hanken Grotesk"],
+                            "headline-md": ["Hanken Grotesk"],
+                            "metadata": ["Hanken Grotesk"],
+                            "headline-lg": ["Hanken Grotesk"],
+                            "caption": ["Hanken Grotesk"],
+                            "title-page": ["Hanken Grotesk"],
+                            "body-md": ["Hanken Grotesk"],
+                            "display-hero": ["Hanken Grotesk"],
+                            "title-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                            "headline-lg-mobile": ["20px", {"lineHeight": "26px", "fontWeight": "700"}],
+                            "headline-md": ["16px", {"lineHeight": "24px", "fontWeight": "700"}],
+                            "metadata": ["10px", {"lineHeight": "14px", "fontWeight": "400"}],
+                            "headline-lg": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                            "caption": ["11px", {"lineHeight": "16px", "fontWeight": "400"}],
+                            "title-page": ["15px", {"lineHeight": "20px", "fontWeight": "700"}],
+                            "body-md": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                            "display-hero": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                            "title-sm": ["13px", {"lineHeight": "18px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased flex flex-col md:flex-row min-h-screen">
+<!-- TopAppBar (Mobile & Desktop) -->
+<header class="bg-surface-dark dark:bg-surface-dark flex justify-between items-center px-gutter h-header-dash w-full z-50 md:hidden sticky top-0 flat no shadows">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed dark:text-primary-fixed-dim" data-icon="store">store</span>
+<h1 class="text-title-page font-title-page font-bold text-on-primary-container dark:text-inverse-primary">Vendor Hub</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Vendor Profile" class="w-full h-full object-cover" data-alt="A small circular avatar placeholder image showing a modern, abstract geometric pattern in teal and coral hues. The lighting is bright and flat, suitable for a professional e-commerce dashboard profile picture. The style is clean, vector-like, and highly polished." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqiX2WlQ2NE5A3AE3bC4ul4WVnhAkPS3IDgUGcjzMgTk-wEHTP4jPfAmS1cuFmlLqkrTA7K1TC4HrKXTHTIbBmDCkbGerdXGbJzmj6RxK-qdSoQ8lBAhgj9hc7QMM5T4-9hzsQIxupvDS1b5I70CElpTRl836lFioTMuL6BTNFHIDf1sU8k3S7xwQfrTvrUNBoEf1p2-wJvKFV2ICXRc5-6lBUsE8CrMCOSza6YG09_gk4bJIbPUx0M_PrtyWNAUOvMTdW-ayh4cpq"/>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop) -->
+<nav class="hidden md:flex flex-col h-full py-4 bg-surface-container-lowest dark:bg-surface-dark text-primary dark:text-primary-fixed-dim border-r border-outline-variant h-full w-sidebar-width fixed left-0 top-0 flat no shadows z-40">
+<div class="px-4 mb-8 flex flex-col items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container mb-2">
+<img alt="Vendor Avatar" class="w-full h-full object-cover" data-alt="A small circular avatar placeholder image showing a modern, abstract geometric pattern in teal and coral hues. The lighting is bright and flat, suitable for a professional e-commerce dashboard profile picture. The style is clean, vector-like, and highly polished." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz5f6672TYndiRb_iwU_hna_r2WFrdTHUofCwDZKtpmrHZVEidjyH4ni2_PCQRkeB1yquWBOgRwybsr9OaScmh36FE7DMtM9nKz6SdANVeN2knsNxXvpyh4inPE5lBjwAEFhIC4Hq-GSBgS-szOq84mxvnX4Wb3Pvz7wWp9tBjwEYywtW_fBxqP7VzYci0oVoZtsnjMYTDU3-dJ5hVedoV5rtC5Co9VFyU7e-CtcEpHMD9_BoR9IbKxkLOWQQNcF7yv9bT8Hi_8xes"/>
+</div>
+<h2 class="text-title-sm font-title-sm text-center truncate w-full">Fashion Forward Co.</h2>
+<p class="text-metadata font-metadata text-text-grey text-center">Platinum Vendor</p>
+<p class="text-metadata font-metadata text-text-grey text-center mt-1">ID: 99283</p>
+</div>
+<ul class="flex flex-col gap-2 w-full">
+<li>
+<a class="flex flex-col items-center py-3 bg-teal-tint text-primary font-bold border-r-4 border-primary hover:bg-teal-tint transition-colors opacity-80" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="text-caption font-caption text-center px-1">Account Settings</span>
+</a>
+</li>
+<li>
+<a class="flex flex-col items-center py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="payments">payments</span>
+<span class="text-caption font-caption text-center px-1">Payouts</span>
+</a>
+</li>
+<li>
+<a class="flex flex-col items-center py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="local_shipping">local_shipping</span>
+<span class="text-caption font-caption text-center px-1">Shipping Rules</span>
+</a>
+</li>
+<li>
+<a class="flex flex-col items-center py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="help">help</span>
+<span class="text-caption font-caption text-center px-1">Support</span>
+</a>
+</li>
+<li>
+<a class="flex flex-col items-center py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="policy">policy</span>
+<span class="text-caption font-caption text-center px-1">Legal</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 w-full md:pl-sidebar-width pb-20 md:pb-0 min-h-screen">
+<div class="max-w-[1440px] mx-auto p-margin-page md:p-8">
+<header class="mb-8">
+<h2 class="text-display-hero font-display-hero text-on-surface">Account Settings</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-2">Manage your vendor profile, security preferences, and notifications.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column: Profile & Notifications -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Profile Card -->
+<section class="bg-surface-white rounded-lg border border-outline-variant p-6 flat no shadows">
+<h3 class="text-headline-md font-headline-md text-primary mb-4 border-b border-surface-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="person">person</span> Profile Information
+                        </h3>
+<div class="flex flex-col sm:flex-row gap-6 mb-6 items-start">
+<div class="w-24 h-24 rounded-full overflow-hidden border-2 border-dashed border-primary-container relative group cursor-pointer bg-teal-tint flex-shrink-0">
+<img alt="Vendor Profile Picture" class="w-full h-full object-cover" data-alt="A professional e-commerce dashboard profile picture placeholder. A modern, abstract geometric pattern in teal and coral hues. The lighting is bright and flat, clean, vector-like, and highly polished. It sits perfectly within a circular frame." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr6MpCUB9I9WUT1p0vI3rSPHe4BNNzvUa4oeEmGRfqCa3m372s5rpIUUuETfieu2iRwoABXpynftMgVhwahx6QdjhB3fp49Rh0L4DIIgzzvqxyU1t313MfL5ZQ6fbaa-sjPs6b3eJ8BsT8sMGBQKdvtJaEyessjsX04_Fi_DcANlj-U_J3tGekxHMkI6YeYoye34cW8ERe-V8ub2G_tLdgj7kyMZRHyryJuhw6ELuilk8pvRIyQnVt68NGsWMbRPNcI_lHTqOuDVsg"/>
+<div class="absolute inset-0 bg-surface-dark/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-surface-white" data-icon="photo_camera">photo_camera</span>
+</div>
+</div>
+<div class="flex-1 w-full space-y-4">
+<div>
+<label class="block text-caption font-caption text-on-surface-variant mb-1">Store Name</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded p-2 text-body-md font-body-md text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors outline-none" type="text" value="Fashion Forward Co."/>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-caption font-caption text-on-surface-variant mb-1">Contact Email</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded p-2 text-body-md font-body-md text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors outline-none" type="email" value="hello@fashionforward.co"/>
+</div>
+<div>
+<label class="block text-caption font-caption text-on-surface-variant mb-1">Phone Number</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded p-2 text-body-md font-body-md text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors outline-none" type="tel" value="+1 (555) 019-2834"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-end">
+<button class="bg-primary-container text-on-primary-container rounded-xl px-6 py-2 text-title-sm font-title-sm hover:opacity-90 transition-opacity">Save Profile</button>
+</div>
+</section>
+<!-- Notifications Card -->
+<section class="bg-surface-white rounded-lg border border-outline-variant p-6 flat no shadows">
+<h3 class="text-headline-md font-headline-md text-primary mb-4 border-b border-surface-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span> Notification Preferences
+                        </h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 hover:bg-teal-tint transition-colors rounded">
+<div>
+<p class="text-title-sm font-title-sm text-on-surface">Order Updates</p>
+<p class="text-caption font-caption text-text-grey">Get notified when a new order is placed or status changes.</p>
+</div>
+<div class="flex gap-4">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="form-checkbox text-primary-container border-outline-variant rounded focus:ring-primary-container h-4 w-4" type="checkbox"/>
+<span class="text-caption font-caption text-on-surface-variant">Email</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="form-checkbox text-primary-container border-outline-variant rounded focus:ring-primary-container h-4 w-4" type="checkbox"/>
+<span class="text-caption font-caption text-on-surface-variant">In-App</span>
+</label>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-teal-tint transition-colors rounded border-t border-surface-variant">
+<div>
+<p class="text-title-sm font-title-sm text-on-surface">Campaign Alerts</p>
+<p class="text-caption font-caption text-text-grey">Alerts for campaign performance and budget limits.</p>
+</div>
+<div class="flex gap-4">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="form-checkbox text-primary-container border-outline-variant rounded focus:ring-primary-container h-4 w-4" type="checkbox"/>
+<span class="text-caption font-caption text-on-surface-variant">Email</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="form-checkbox text-primary-container border-outline-variant rounded focus:ring-primary-container h-4 w-4" type="checkbox"/>
+<span class="text-caption font-caption text-on-surface-variant">In-App</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Security & Danger Zone -->
+<div class="flex flex-col gap-6">
+<!-- Security Card -->
+<section class="bg-surface-white rounded-lg border border-outline-variant p-6 flat no shadows">
+<h3 class="text-headline-md font-headline-md text-primary mb-4 border-b border-surface-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="lock">lock</span> Security
+                        </h3>
+<div class="space-y-4">
+<button class="w-full flex items-center justify-between p-3 border border-outline-variant rounded hover:bg-teal-tint transition-colors text-left group">
+<div class="flex items-center gap-3">
+<div class="bg-surface-container p-2 rounded-full text-on-surface-variant group-hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="key">key</span>
+</div>
+<div>
+<p class="text-title-sm font-title-sm text-on-surface">Change Password</p>
+<p class="text-caption font-caption text-text-grey">Last changed 45 days ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-grey" data-icon="chevron_right">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-3 border border-outline-variant rounded hover:bg-teal-tint transition-colors text-left group">
+<div class="flex items-center gap-3">
+<div class="bg-surface-container p-2 rounded-full text-on-surface-variant group-hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+</div>
+<div>
+<p class="text-title-sm font-title-sm text-on-surface">Two-Factor Authentication</p>
+<span class="inline-block mt-1 px-2 py-0.5 bg-success-green/10 text-success-green rounded text-metadata font-metadata font-bold">Enabled</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-grey" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Danger Zone Card -->
+<section class="bg-surface-white rounded-lg border border-error-red p-6 flat no shadows relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-error-red"></div>
+<h3 class="text-headline-md font-headline-md text-error-red mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="warning">warning</span> Danger Zone
+                        </h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6">Irreversible actions regarding your storefront status.</p>
+<button class="w-full bg-surface-white border border-error-red text-error-red rounded-xl px-4 py-2 text-title-sm font-title-sm hover:bg-red-tint transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span> Deactivate Storefront
+                        </button>
+</section>
+<!-- Log Out -->
+<div class="mt-auto pt-4">
+<button class="w-full border border-outline-variant text-on-surface-variant bg-surface-white rounded-xl px-4 py-3 text-title-sm font-title-sm hover:bg-surface-container transition-colors flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined" data-icon="logout">logout</span> Log Out
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 bg-surface dark:bg-surface-dark border-t border-outline-variant dark:border-surface-variant flat no shadows">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" data-icon="dashboard">dashboard</span>
+<span class="text-caption font-caption">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" data-icon="inventory_2">inventory_2</span>
+<span class="text-caption font-caption">Products</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" data-icon="shopping_cart">shopping_cart</span>
+<span class="text-caption font-caption">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" data-icon="campaign">campaign</span>
+<span class="text-caption font-caption">Campaigns</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 scale-90 duration-150" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" data-icon="settings" data-weight="fill">settings</span>
+<span class="text-caption font-caption">More</span>
+</a>
+</nav>
+</body></html>

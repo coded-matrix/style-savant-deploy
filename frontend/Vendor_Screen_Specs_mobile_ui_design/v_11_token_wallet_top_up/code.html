@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Token Wallet &amp; Top-Up - V-11</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#00837c",
+                        "inverse-primary": "#72d7cf",
+                        "primary": "#006762",
+                        "on-secondary-container": "#711707",
+                        "primary-fixed-dim": "#72d7cf",
+                        "text-grey": "#6C757D",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-dark": "#1A1D1F",
+                        "outline-variant": "#bdc9c7",
+                        "tertiary-fixed-dim": "#fbbc00",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "error-container": "#ffdad6",
+                        "red-tint": "rgba(220, 53, 69, 0.05)",
+                        "on-tertiary-container": "#fffbff",
+                        "success-green": "#28A745",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdfa0",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb4a5",
+                        "on-primary-container": "#f3fffd",
+                        "on-secondary-fixed-variant": "#842413",
+                        "surface-tint": "#006a65",
+                        "tertiary": "#765700",
+                        "inverse-on-surface": "#f0f1f2",
+                        "error-red": "#DC3545",
+                        "secondary": "#a43c28",
+                        "on-tertiary-fixed": "#261a00",
+                        "surface-bright": "#f8f9fa",
+                        "secondary-container": "#fd7e65",
+                        "secondary-fixed": "#ffdad3",
+                        "on-secondary-fixed": "#3f0400",
+                        "surface-container-low": "#f3f4f5",
+                        "on-surface": "#191c1d",
+                        "on-background": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#956e00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#3d4948",
+                        "on-primary-fixed": "#00201e",
+                        "teal-tint": "rgba(47, 156, 149, 0.05)",
+                        "surface-variant": "#e1e3e4",
+                        "surface-white": "#FFFFFF",
+                        "surface-dim": "#d9dadb",
+                        "outline": "#6d7978",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "background": "#f8f9fa",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2e3132",
+                        "primary-fixed": "#8ff4eb",
+                        "on-primary-fixed-variant": "#00504c",
+                        "surface": "#f8f9fa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-dash": "40px",
+                        "gutter": "16px",
+                        "margin-page": "20px",
+                        "margin-card": "16px",
+                        "sidebar-width": "100px",
+                        "header-system": "28px",
+                        "base": "4px",
+                        "row-height-std": "52px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "metadata": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "caption": ["Hanken Grotesk"],
+                        "title-page": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-hero": ["Hanken Grotesk"],
+                        "title-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", { "lineHeight": "26px", "fontWeight": "700" }],
+                        "headline-md": ["16px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "metadata": ["10px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "headline-lg": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "caption": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "title-page": ["15px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "body-md": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "display-hero": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "title-sm": ["13px", { "lineHeight": "18px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Mobile Top App Bar (Visible on < md) -->
+<div class="md:hidden flex justify-between items-center px-gutter h-header-dash w-full z-50 bg-surface-dark dark:bg-surface-dark sticky top-0 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">store</span>
+<span class="text-title-page font-title-page font-bold text-on-primary-container dark:text-inverse-primary">Vendor Hub</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A detailed, modern avatar showing a stylized fashion vendor portrait. High contrast lighting with subtle teal highlights. The expression is professional yet creative, fitting for a premium e-commerce platform. The background is a clean, neutral gradient." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBsi9Fqo2LSylFTQ1JwDEwexvBZctiRDw1IJ8Atnh23a2jybSCmUjdpWZ-yajOiB4XvISYl39Fb-Joxm6AUT4FfEJyDaAdYwPH6htqxmhDsYDikgWGxlQWOXacvVrwZDmssP3OP-ab6O6UxcCTRExyWEJfkPsz9LRcI_xn1QKPZePfZO-Hge4Y2zdJMSUts8rcw7V6Zx1w96C7V8Ci8u-Eh-0YeKh1ySytGmHPYf2dA91gi8amHrEh5f-ScZrejbOaJkWi1CoBnwOK"/>
+</div>
+</div>
+<!-- Navigation Drawer (Web) -->
+<aside class="hidden md:flex flex-col h-screen py-4 bg-surface-container-lowest dark:bg-surface-dark border-r border-outline-variant w-[240px] sticky top-0 shrink-0">
+<!-- Header -->
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A high-quality logo icon for 'Fashion Forward Co.', featuring a minimalist geometric design in teal and dark grey. It suggests modern elegance and professional reliability, suitable for a platinum-tier vendor on a high-stakes e-commerce platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf4uqjGs49uQLu-_H7rClXqZSj_HG1o3cM-QEfFDjhi7jFemXOmOYQAaBPTCbpV4iGmVTzZa2ZtIqzGHHIUzNIxXxDBc8aRoA49h_xTBKkFDtMWpTRdT6n4NR-UDEqI8nRawbjKa3ZxIyHDaB7CW_Rd_f8AqfctO4meiIYdPXmz59FkBEjuoHkhxaeJ_OeTSFI7-g70wk8yjutgdOIQ7nu_Mk9phg7CLRTlmPAcYkQteDGSdKPmaUKvtxV6xzWkVXzMiPGA-z3r_bi"/>
+</div>
+<div class="flex flex-col overflow-hidden">
+<span class="text-title-sm font-title-sm text-primary font-bold truncate">Fashion Forward Co.</span>
+<span class="text-metadata font-metadata text-text-grey truncate">Platinum Vendor</span>
+<span class="text-metadata font-metadata text-text-grey truncate">ID: 99283</span>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-1 w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-title-sm font-title-sm">Account Settings</span>
+</a>
+<!-- Active State using Semantic Match (Closest to "Tokens" or Wallet) - Using Payouts as proxy if no direct match, but actually adding Tokens since prompt asks for it to be active. Modifying JSON lightly for prompt requirement of "Tokens nav active" while keeping others.  Wait, JSON says ["Account Settings", "Payouts", "Shipping Rules", "Support", "Legal"]. Tokens isn't there. I'll use Payouts as the closest financial tab. -->
+<a class="flex items-center gap-3 px-6 py-3 bg-teal-tint text-primary font-bold border-r-4 border-primary opacity-80 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-title-sm font-title-sm">Tokens &amp; Payouts</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="text-title-sm font-title-sm">Shipping Rules</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-title-sm font-title-sm">Support</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined">policy</span>
+<span class="text-title-sm font-title-sm">Legal</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-margin-page pb-24 md:pb-margin-page max-w-[1200px] mx-auto w-full overflow-y-auto">
+<!-- Header Area -->
+<header class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-primary mb-1">Token Wallet</h1>
+<p class="text-body-md font-body-md text-text-grey">Manage your balance and top up to use premium AI features.</p>
+</div>
+<!-- Global Token Pill (Specialized Component) -->
+<div class="flex items-center gap-2 bg-surface-container-high rounded-full px-4 py-2 border border-outline-variant shadow-sm w-max">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+<span class="text-title-sm font-title-sm text-on-surface">2,450 Tokens Available</span>
+</div>
+</header>
+<!-- High-End Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-margin-card mb-12">
+<!-- Large Balance Hero Card (Spans 2 cols on Desktop) -->
+<div class="lg:col-span-2 bg-surface-white rounded-xl border border-outline-variant p-6 relative overflow-hidden flex flex-col justify-between min-h-[300px]">
+<!-- Abstract BG pattern/texture (simulating glassmorphism/high-end feel without data URIs) -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-container rounded-full blur-3xl opacity-10 pointer-events-none"></div>
+<div class="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary-container rounded-full blur-3xl opacity-10 pointer-events-none"></div>
+<div class="relative z-10 flex flex-col h-full">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface mb-2">Current Balance</h2>
+<div class="text-display-hero font-display-hero text-primary flex items-baseline gap-2">
+                                2,450 <span class="text-title-sm font-title-sm text-text-grey uppercase tracking-wider">Tokens</span>
+</div>
+</div>
+<div class="bg-teal-tint text-primary px-3 py-1 rounded-full text-caption font-caption flex items-center gap-1 border border-primary-container/20">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                            Active
+                        </div>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between items-end mb-2">
+<span class="text-body-md font-body-md text-text-grey">Monthly Usage</span>
+<span class="text-title-sm font-title-sm text-on-surface">7,550 / 10,000 used</span>
+</div>
+<!-- Usage Bar -->
+<div class="w-full h-3 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 75%;"></div>
+</div>
+<p class="text-caption font-caption text-text-grey mt-2">Resets in 14 days.</p>
+</div>
+</div>
+</div>
+<!-- Usage Breakdown by AI Feature -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-6 flex flex-col">
+<h3 class="text-title-sm font-title-sm text-on-surface mb-4 flex items-center gap-2 border-b border-surface-variant pb-2">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+                    Usage Breakdown
+                </h3>
+<div class="flex-1 flex flex-col gap-4 mt-2">
+<!-- Feature 1 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">edit_document</span>
+</div>
+<span class="text-body-md font-body-md text-on-surface">Description Gen</span>
+</div>
+<span class="text-title-sm font-title-sm text-primary">4,200 t</span>
+</div>
+<!-- Feature 2 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">image</span>
+</div>
+<span class="text-body-md font-body-md text-on-surface">Image Upscaling</span>
+</div>
+<span class="text-title-sm font-title-sm text-primary">2,150 t</span>
+</div>
+<!-- Feature 3 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">translate</span>
+</div>
+<span class="text-body-md font-body-md text-on-surface">Auto-Translate</span>
+</div>
+<span class="text-title-sm font-title-sm text-primary">1,200 t</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Top-Up Section -->
+<section class="mb-12">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-6 border-b border-surface-variant pb-2">Top-Up Bundles</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-margin-card">
+<!-- Bundle 1 -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-6 hover:border-primary transition-colors flex flex-col group relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-primary">toll</span>
+</div>
+<div class="mb-4">
+<span class="text-headline-lg font-headline-lg text-on-surface block">1,000</span>
+<span class="text-body-md font-body-md text-text-grey">Tokens</span>
+</div>
+<div class="text-headline-md font-headline-md text-primary mb-6">$10.00</div>
+<button class="mt-auto w-full py-2 px-4 rounded-xl border border-primary text-primary hover:bg-teal-tint text-title-sm font-title-sm transition-colors flex items-center justify-center gap-2">
+                        Buy with Paystack
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Bundle 2 (Popular) -->
+<div class="bg-surface-white rounded-xl border-2 border-primary p-6 relative flex flex-col group overflow-hidden shadow-sm shadow-primary-container/10 transform md:-translate-y-2">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-primary">toll</span>
+</div>
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-on-primary px-3 py-1 rounded-full text-caption font-caption font-bold tracking-wider">
+                        POPULAR
+                    </div>
+<div class="mb-4 mt-2">
+<span class="text-headline-lg font-headline-lg text-on-surface block">5,000</span>
+<span class="text-body-md font-body-md text-text-grey">Tokens</span>
+</div>
+<div class="text-headline-md font-headline-md text-primary mb-2">$45.00</div>
+<div class="text-caption font-caption text-success-green mb-6">Save 10%</div>
+<button class="mt-auto w-full py-2 px-4 rounded-xl bg-primary text-on-primary hover:bg-surface-tint text-title-sm font-title-sm transition-colors flex items-center justify-center gap-2">
+                        Buy with Paystack
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Bundle 3 -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-6 hover:border-primary transition-colors flex flex-col group relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px] text-primary">toll</span>
+</div>
+<div class="mb-4">
+<span class="text-headline-lg font-headline-lg text-on-surface block">10,000</span>
+<span class="text-body-md font-body-md text-text-grey">Tokens</span>
+</div>
+<div class="text-headline-md font-headline-md text-primary mb-2">$80.00</div>
+<div class="text-caption font-caption text-success-green mb-6">Save 20%</div>
+<button class="mt-auto w-full py-2 px-4 rounded-xl border border-primary text-primary hover:bg-teal-tint text-title-sm font-title-sm transition-colors flex items-center justify-center gap-2">
+                        Buy with Paystack
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Transaction History Table -->
+<section>
+<h2 class="text-headline-md font-headline-md text-on-surface mb-4">Transaction History</h2>
+<div class="bg-surface-white rounded-xl border border-outline-variant overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-3 px-4 text-title-sm font-title-sm text-on-surface-variant font-bold">Date</th>
+<th class="py-3 px-4 text-title-sm font-title-sm text-on-surface-variant font-bold">Description</th>
+<th class="py-3 px-4 text-title-sm font-title-sm text-on-surface-variant font-bold">Type</th>
+<th class="py-3 px-4 text-title-sm font-title-sm text-on-surface-variant font-bold text-right">Amount</th>
+</tr>
+</thead>
+<tbody>
+<!-- Row 1 -->
+<tr class="h-row-height-std border-b border-surface-variant hover:bg-teal-tint transition-colors">
+<td class="py-2 px-4 text-body-md font-body-md text-on-surface whitespace-nowrap">Oct 24, 2023</td>
+<td class="py-2 px-4 text-body-md font-body-md text-on-surface">5,000 Token Bundle Top-Up</td>
+<td class="py-2 px-4">
+<span class="bg-teal-tint text-primary px-2 py-1 rounded-[6px] text-caption font-caption inline-block">Credit</span>
+</td>
+<td class="py-2 px-4 text-title-sm font-title-sm text-success-green text-right whitespace-nowrap">+ 5,000 t</td>
+</tr>
+<!-- Row 2 -->
+<tr class="h-row-height-std border-b border-surface-variant hover:bg-teal-tint transition-colors">
+<td class="py-2 px-4 text-body-md font-body-md text-on-surface whitespace-nowrap">Oct 23, 2023</td>
+<td class="py-2 px-4 text-body-md font-body-md text-on-surface">Batch Image Upscaling (50 items)</td>
+<td class="py-2 px-4">
+<span class="bg-surface-container text-on-surface-variant px-2 py-1 rounded-[6px] text-caption font-caption inline-block">Usage</span>
+</td>
+<td class="py-2 px-4 text-title-sm font-title-sm text-on-surface text-right whitespace-nowrap">- 250 t</td>
+</tr>
+<!-- Row 3 -->
+<tr class="h-row-height-std border-b border-surface-variant hover:bg-teal-tint transition-colors">
+<td class="py-2 px-4 text-body-md font-body-md text-on-surface whitespace-nowrap">Oct 21, 2023</td>
+<td class="py-2 px-4 text-body-md font-body-md text-on-surface">AI Product Descriptions (100 items)</td>
+<td class="py-2 px-4">
+<span class="bg-surface-container text-on-surface-variant px-2 py-1 rounded-[6px] text-caption font-caption inline-block">Usage</span>
+</td>
+<td class="py-2 px-4 text-title-sm font-title-sm text-on-surface text-right whitespace-nowrap">- 500 t</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 bg-surface dark:bg-surface-dark border-t border-outline-variant dark:border-surface-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-caption font-caption mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-dim px-3 py-1 hover:bg-teal-tint transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="text-caption font-caption mt-1">Products</span>
+</a>
+<!-- Using Menu as proxy for settings/tokens to highlight something, or maybe More. Let's highlight 'More' since Wallet usually lives there if not explicit. -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">menu</span>
+<span class="text-caption font-caption mt-1">More</span>
+</a>
+</nav>
+</body></html>

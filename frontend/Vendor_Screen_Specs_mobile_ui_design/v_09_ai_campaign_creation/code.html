@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Campaign Creation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#00837c",
+                        "inverse-primary": "#72d7cf",
+                        "primary": "#006762",
+                        "on-secondary-container": "#711707",
+                        "primary-fixed-dim": "#72d7cf",
+                        "text-grey": "#6C757D",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-dark": "#1A1D1F",
+                        "outline-variant": "#bdc9c7",
+                        "tertiary-fixed-dim": "#fbbc00",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "error-container": "#ffdad6",
+                        "red-tint": "rgba(220, 53, 69, 0.05)",
+                        "on-tertiary-container": "#fffbff",
+                        "success-green": "#28A745",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdfa0",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb4a5",
+                        "on-primary-container": "#f3fffd",
+                        "on-secondary-fixed-variant": "#842413",
+                        "surface-tint": "#006a65",
+                        "tertiary": "#765700",
+                        "inverse-on-surface": "#f0f1f2",
+                        "error-red": "#DC3545",
+                        "secondary": "#a43c28",
+                        "on-tertiary-fixed": "#261a00",
+                        "surface-bright": "#f8f9fa",
+                        "secondary-container": "#fd7e65",
+                        "secondary-fixed": "#ffdad3",
+                        "on-secondary-fixed": "#3f0400",
+                        "surface-container-low": "#f3f4f5",
+                        "on-surface": "#191c1d",
+                        "on-background": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#956e00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#3d4948",
+                        "on-primary-fixed": "#00201e",
+                        "teal-tint": "rgba(47, 156, 149, 0.05)",
+                        "surface-variant": "#e1e3e4",
+                        "surface-white": "#FFFFFF",
+                        "surface-dim": "#d9dadb",
+                        "outline": "#6d7978",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "background": "#f8f9fa",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2e3132",
+                        "primary-fixed": "#8ff4eb",
+                        "on-primary-fixed-variant": "#00504c",
+                        "surface": "#f8f9fa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-dash": "40px",
+                        "gutter": "16px",
+                        "margin-page": "20px",
+                        "margin-card": "16px",
+                        "sidebar-width": "100px",
+                        "header-system": "28px",
+                        "base": "4px",
+                        "row-height-std": "52px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "metadata": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "caption": ["Hanken Grotesk"],
+                        "title-page": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-hero": ["Hanken Grotesk"],
+                        "title-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", {"lineHeight": "26px", "fontWeight": "700"}],
+                        "headline-md": ["16px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "metadata": ["10px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "headline-lg": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "caption": ["11px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "title-page": ["15px", {"lineHeight": "20px", "fontWeight": "700"}],
+                        "body-md": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "display-hero": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "title-sm": ["13px", {"lineHeight": "18px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col md:flex-row">
+<!-- TopAppBar (Mobile only) -->
+<header class="md:hidden flex justify-between items-center px-gutter h-header-dash w-full z-50 bg-surface-dark docked full-width top-0 text-primary-fixed">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">store</span>
+<span class="text-title-page font-title-page font-bold text-on-primary-container">Vendor Hub</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 bg-surface-tint/20 px-2 py-1 rounded-full text-primary-fixed-dim border border-primary-fixed-dim/30">
+<span class="material-symbols-outlined text-sm">token</span>
+<span class="text-metadata font-metadata font-bold">1,240</span>
+</div>
+<img class="w-6 h-6 rounded-full object-cover" data-alt="A small circular avatar image showing a professional, modern, and friendly looking person's face, well lit, against a clean white background, high quality portrait suitable for a business dashboard profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwm18Sk2j3B9Ga3Y5AKO3sRiMEelCBpfSkTYw6TUVc7bjubGlrZC6PueKnj9ipFY53ifvz_w-wh8q0MZht-K73M6yOgvMbAUFrt0Oi5_E1gEK1K7fvwYY40zwbSiIXMlVWD8HZnUqb9l0QYV7SS5Bp9p87z1z64s_VcowZcFHw2njvoZ94DzOODIAV6Hx4g3JRf3fsouuZ_7cIYzafeplvWqfdWWHm0q_vhMCG4WovgdXw_-DX8sDWGYCC67qy7AGnFvbtpQ2KOfG1"/>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop) -->
+<aside class="hidden md:flex flex-col h-full py-4 h-full w-[240px] border-r border-outline-variant bg-surface-container-lowest fixed left-0 top-0 z-40">
+<div class="px-6 mb-8 mt-2 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">store</span>
+<span class="text-headline-md font-headline-md text-primary">Vendor Hub</span>
+</div>
+</div>
+<div class="px-6 mb-6 flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A clear, professional headshot photo of an individual used as a user profile avatar. The person has a friendly expression. The lighting is bright and soft, creating a modern clean look. Solid neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNOoxy8eI7BwcvQ-r6eYm-sSUmeySW7q0p2sIMx8CDEkRQL5Jd4N52Q8F_XHEWnNsTchdR4jR6jjeV67STeqRP5CteuSIzruZ7ReiXwlkq93NcO9AyPL7eT-pQKE_iVGPDGv7UjNtBeYvvuL9SILkn8ElHBY13w6kDA31HPrAC_TJbn0bacNrqepd5157DTUsWy2WoGvkGcoAJ0ykTZRE2QKtEvQNtDSltHZyU1TkhTXo1AFsf8-cATD259z8hErTHYbOoCoVzgkZd"/>
+<div>
+<div class="text-title-sm font-title-sm text-primary">Fashion Forward Co.</div>
+<div class="text-caption font-caption text-text-grey">Platinum Vendor</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-body-md font-body-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-body-md font-body-md">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-teal-tint text-primary font-bold border-r-4 border-primary opacity-80" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="text-body-md font-body-md">Campaigns</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-teal-tint transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-body-md font-body-md">Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="p-4 bg-surface rounded-xl border border-outline-variant flex flex-col gap-2">
+<div class="text-caption font-caption text-text-grey">AI Token Balance</div>
+<div class="flex items-center gap-2 text-primary font-bold text-headline-md font-headline-md">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                     1,240
+                 </div>
+<button class="text-caption font-caption text-primary underline mt-1 text-left">Get more tokens</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-[240px] p-4 md:p-margin-page pb-24 md:pb-margin-page max-w-[1440px] mx-auto w-full">
+<!-- Header Strip -->
+<div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface">AI Campaign Studio</h1>
+<p class="text-body-md font-body-md text-text-grey mt-1">Generate high-converting ad creative in seconds.</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 border border-primary text-primary rounded-xl text-body-md font-body-md font-bold hover:bg-teal-tint transition-colors">Drafts</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Form -->
+<div class="lg:col-span-7 space-y-6">
+<!-- Step 1: Products -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-margin-card relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<h2 class="text-headline-md font-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary bg-teal-tint p-1 rounded-full text-sm">looks_one</span>
+                        Select Products
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<label class="flex items-start gap-3 p-3 border border-primary bg-teal-tint rounded-xl cursor-pointer">
+<input checked="" class="mt-1 text-primary focus:ring-primary rounded" type="checkbox"/>
+<div class="flex gap-3 w-full">
+<img class="w-12 h-12 rounded object-cover border border-outline-variant" data-alt="A clean, high quality product photo of a sleek, modern, minimal black leather handbag. The handbag is isolated against a pure white background with soft, studio lighting highlighting its premium texture and hardware." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1SboE9wJ03n18DcVbv76oe4Xt3WrjnjNiPKqsm1YpflYHW2kwGl7HPrVfi8wQzVP9sXo8KK-Xa5qVH1sk11sroIGzPyBSWv8AoIr-lU4h0cPPReE9mlw7z18v_r1nTVii7UolKjIX8pQPvG2nLaQOoPFhQUvIrRiHLuJv_QT21t5TnSmeMHKxczURklyKI7bB3XcW8F0LIvgGFffAQwpSd1XSKWZUfvMcRsN9Fc1jDI-w9NMqupaR4i_lBSagd4b5LvD657ppwlTl"/>
+<div>
+<div class="text-body-md font-body-md font-bold text-on-surface">Midnight Tote</div>
+<div class="text-caption font-caption text-text-grey">SKU: LTH-019</div>
+</div>
+</div>
+</label>
+<label class="flex items-start gap-3 p-3 border border-outline-variant hover:border-primary/50 rounded-xl cursor-pointer transition-colors">
+<input class="mt-1 text-primary focus:ring-primary rounded" type="checkbox"/>
+<div class="flex gap-3 w-full">
+<img class="w-12 h-12 rounded object-cover border border-outline-variant" data-alt="A high quality product photo of a stylish pair of oversized geometric sunglasses with tortoiseshell frames and amber lenses. The sunglasses are isolated against a pure white background with soft studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9mwBthAQ9PMY_YXQOOTYmz7ZWmkR_-9RX9D9e-ojWdQ4RG5UraCemvPC8HA58A_yVoRtdTToPYntg4WMlUkgqr0Lxn6vo-_zQtn2GIkpRjNRE5xuum9jg_jIHf9fieVQpIwjfp8ck2XrKwVLC0aZ4vrGnzRxH2UtsVV4TtjLwXH1W4bHlc-1EkfkPCSNupC3L_cFfH68pG1Hc3qR67jHK_hJILpPznJYbBUaJ2-skYuRBd3V0BfIN2dbliXSs432I8MNq0xJjmWGp"/>
+<div>
+<div class="text-body-md font-body-md font-bold text-on-surface">Amber Shades</div>
+<div class="text-caption font-caption text-text-grey">SKU: ACC-882</div>
+</div>
+</div>
+</label>
+<button class="col-span-1 md:col-span-2 p-3 border border-dashed border-primary/50 text-primary rounded-xl flex items-center justify-center gap-2 hover:bg-teal-tint transition-colors text-body-md font-body-md">
+<span class="material-symbols-outlined">add</span>
+                            Browse More Products
+                        </button>
+</div>
+</div>
+<!-- Step 2: Prompt -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-margin-card relative overflow-hidden">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-text-grey bg-surface-container p-1 rounded-full text-sm">looks_two</span>
+                        Campaign Prompt
+                    </h2>
+<div class="relative">
+<textarea class="w-full h-32 bg-surface-bright border border-outline-variant rounded-xl p-3 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary resize-none transition-colors" placeholder="Describe the mood, setting, and style of your campaign... e.g., 'A stylish urban setting at golden hour, high fashion editorial style.'"></textarea>
+<button class="absolute bottom-3 right-3 flex items-center gap-1 text-caption font-caption text-primary bg-teal-tint px-2 py-1 rounded-full font-bold hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+                            Gemini Suggest
+                        </button>
+</div>
+</div>
+<!-- Step 3: Targeting & Format -->
+<div class="bg-surface-white rounded-xl border border-outline-variant p-margin-card relative overflow-hidden">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-text-grey bg-surface-container p-1 rounded-full text-sm">looks_3</span>
+                        Details
+                    </h2>
+<div class="mb-5">
+<div class="text-title-sm font-title-sm text-on-surface mb-2">Target Market</div>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-1.5 rounded-full text-caption font-caption bg-secondary-container text-white font-bold transition-colors">Gen Z</button>
+<button class="px-4 py-1.5 rounded-full text-caption font-caption bg-surface-variant text-on-surface-variant hover:bg-outline-variant transition-colors">Millennials</button>
+<button class="px-4 py-1.5 rounded-full text-caption font-caption bg-secondary-container text-white font-bold transition-colors">Urban Professionals</button>
+<button class="px-4 py-1.5 rounded-full text-caption font-caption bg-surface-variant text-on-surface-variant hover:bg-outline-variant transition-colors">Luxury</button>
+</div>
+</div>
+<div>
+<div class="text-title-sm font-title-sm text-on-surface mb-2">Ad Format</div>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-1.5 rounded-full text-caption font-caption bg-secondary-container text-white font-bold transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">crop_square</span> Instagram Square</button>
+<button class="px-4 py-1.5 rounded-full text-caption font-caption bg-surface-variant text-on-surface-variant hover:bg-outline-variant transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">smartphone</span> TikTok / Reels</button>
+<button class="px-4 py-1.5 rounded-full text-caption font-caption bg-surface-variant text-on-surface-variant hover:bg-outline-variant transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">view_agenda</span> Banner</button>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex items-center justify-between pt-4">
+<div class="text-caption font-caption text-text-grey flex items-center gap-1">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-sm" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                        Estimated cost: <span class="font-bold text-on-surface">~80 tokens</span>
+</div>
+<button class="bg-secondary-container hover:bg-secondary text-white px-6 py-3 rounded-xl text-body-md font-body-md font-bold flex items-center gap-2 shadow-sm transition-colors">
+<span class="material-symbols-outlined">magic_button</span>
+                        Generate Campaign
+                    </button>
+</div>
+</div>
+<!-- Right Column: Preview Area -->
+<div class="lg:col-span-5">
+<div class="bg-surface-white rounded-xl border border-outline-variant p-4 md:p-margin-card sticky top-6 h-[600px] flex flex-col">
+<h3 class="text-title-sm font-title-sm text-on-surface mb-4 border-b border-outline-variant pb-2">Live Preview</h3>
+<div class="flex-1 border-2 border-dashed border-outline-variant rounded-xl bg-surface-bright flex flex-col items-center justify-center p-6 text-center overflow-hidden relative">
+<!-- Placeholder State (Visible initially) -->
+<div class="text-outline mb-4">
+<span class="material-symbols-outlined text-4xl mb-2">image_search</span>
+<p class="text-body-md font-body-md">Your generated creative will appear here.</p>
+<p class="text-caption font-caption mt-1">Fill out the details and click generate.</p>
+</div>
+<!-- Example Generated State (Hidden initially, shown here for structure)
+                        <img src="placeholder" data-alt="A stunning, high fashion editorial photograph of a model holding a sleek black leather handbag in a vibrant urban setting during golden hour. The lighting is warm and cinematic, casting long stylish shadows. The overall aesthetic is modern, premium, and geared towards young urban professionals." class="absolute inset-0 w-full h-full object-cover rounded-xl">
+                        <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent rounded-b-xl">
+                            <p class="text-white text-body-md font-body-md">Own the night. The Midnight Tote, now back in stock. 🖤 #UrbanStyle</p>
+                        </div>
+                        -->
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 bg-surface border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-caption font-caption">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-caption font-caption">Products</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-caption font-caption">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="text-caption font-caption font-bold">Campaigns</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined">menu</span>
+<span class="text-caption font-caption">More</span>
+</a>
+</nav>
+</body></html>
