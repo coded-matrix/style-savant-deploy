@@ -221,6 +221,27 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(400%)" },
         },
+        // Try-on attention cues. The motion is squeezed into the tail of each
+        // cycle so the button rests most of the time — continuous movement
+        // beside a playing video reads as a stuck spinner and gets ignored.
+        "tryon-nudge": {
+          "0%, 82%, 100%": { transform: "rotate(0deg) scale(1)" },
+          "85%": { transform: "rotate(-7deg) scale(1.06)" },
+          "88%": { transform: "rotate(6deg) scale(1.06)" },
+          "91%": { transform: "rotate(-4deg) scale(1.04)" },
+          "94%": { transform: "rotate(3deg) scale(1.02)" },
+          "97%": { transform: "rotate(0deg) scale(1)" },
+        },
+        // Glow rides its own element: animating box-shadow on the button
+        // itself fights Tailwind's `shadow-*` custom properties.
+        "tryon-halo": {
+          "0%, 78%, 100%": { opacity: "0", transform: "scale(0.85)" },
+          "88%": { opacity: "0.85", transform: "scale(1.35)" },
+        },
+        "tryon-sheen": {
+          "0%, 78%, 100%": { transform: "translateX(-140%) skewX(-20deg)" },
+          "92%": { transform: "translateX(140%) skewX(-20deg)" },
+        },
       },
       animation: {
         "pulse-dot": "pulse-dot 600ms ease-in-out infinite",
@@ -235,6 +256,9 @@ export default {
         "shake": "shake 420ms cubic-bezier(0.36,0.07,0.19,0.97)",
         "confetti": "confetti-fall 1.2s ease-in forwards",
         "reveal-sweep": "reveal-sweep 1.8s ease-in-out infinite",
+        "tryon-nudge": "tryon-nudge 5s cubic-bezier(0.36,0.07,0.19,0.97) infinite",
+        "tryon-sheen": "tryon-sheen 5s ease-in-out infinite",
+        "tryon-halo": "tryon-halo 5s ease-in-out infinite",
       },
     },
   },

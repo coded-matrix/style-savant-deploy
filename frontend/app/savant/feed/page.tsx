@@ -257,14 +257,12 @@ export default function FeedPage() {
           const railButtons = [
             <RailButton
               key="tryon"
+              primary
               onClick={() => openTryOn(post)}
               icon={
                 <svg
                   viewBox="0 0 100 100"
-                  className={cn(
-                    "h-[26px] w-[26px] transition-colors",
-                    "fill-none stroke-white/90"
-                  )}
+                  className="relative z-10 h-[28px] w-[28px] fill-none stroke-ink transition-colors"
                   strokeWidth="8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -375,21 +373,68 @@ export default function FeedPage() {
   );
 }
 
+/**
+ * Feed action-rail button.
+ *
+ * `primary` marks the hero action (try-on). It inverts the fill so it differs
+ * from the secondary glass buttons in *kind*, not just size, and adds a
+ * periodic sheen + nudge to pull the eye to the rail. Both cues are disabled
+ * under prefers-reduced-motion, where the inverted fill alone carries the
+ * hierarchy.
+ */
 function RailButton({
   icon,
   label,
   onClick,
+  primary = false,
 }: {
   icon: React.ReactNode;
   label: string;
   onClick?: () => void;
+  primary?: boolean;
 }) {
   return (
-    <button onClick={onClick} className="flex flex-col items-center group transition-transform active:scale-95">
-      <div className="grid h-12 w-12 place-items-center rounded-full bg-black/30 backdrop-blur-md transition-colors group-hover:bg-black/40">
-        {icon}
-      </div>
-      <span className="mt-1.5 text-[11px] tracking-wide text-white/70">{label}</span>
+    <button
+      onClick={onClick}
+      aria-label={label}
+      className="group flex flex-col items-center transition-transform active:scale-95"
+    >
+      <span className="relative grid place-items-center">
+        {/* Halo sits behind the button and outside its overflow clip so it can
+            bloom past the edge. */}
+        {primary ? (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute h-14 w-14 rounded-full bg-white/50 blur-md motion-safe:animate-tryon-halo motion-reduce:hidden"
+          />
+        ) : null}
+        <div
+          className={cn(
+            "relative grid place-items-center overflow-hidden rounded-full transition-colors",
+            primary
+              ? "h-14 w-14 bg-white shadow-lg shadow-black/25 ring-1 ring-black/5 group-hover:bg-white motion-safe:animate-tryon-nudge"
+              : "h-12 w-12 bg-black/30 backdrop-blur-md group-hover:bg-black/40",
+          )}
+        >
+          {icon}
+          {primary ? (
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/2 bg-gradient-to-r from-transparent via-white/70 to-transparent motion-safe:animate-tryon-sheen motion-reduce:hidden"
+            />
+          ) : null}
+        </div>
+      </span>
+      <span
+        className={cn(
+          "mt-1.5 tracking-wide",
+          primary
+            ? "text-[12px] font-bold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
+            : "text-[11px] text-white/70",
+        )}
+      >
+        {label}
+      </span>
     </button>
   );
 }
