@@ -8,6 +8,7 @@ import { useVendor } from "@/context/VendorContext";
 import { PageHeader, Thumb, EmptyState } from "@/components/vendor/shared";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import type { OrderStatus } from "@/lib/vendor/types";
+import { inToCm } from "@/lib/api/measurement";
 
 const STAGES: { key: OrderStatus; label: string }[] = [
   { key: "pending", label: "Placed" },
@@ -48,6 +49,7 @@ export default function OrderDetailPage({
   const [tracking, setTracking] = useState(order?.tracking ?? "");
   const [courier, setCourier] = useState(order?.courier ?? "");
   const [saved, setSaved] = useState(false);
+  const [measurementUnit, setMeasurementUnit] = useState<"in" | "cm">("in");
 
   if (!order) {
     return (
@@ -196,29 +198,49 @@ export default function OrderDetailPage({
             id="print-measurements"
             className="rounded-xl border border-teal/40 bg-vendor-teal-tint p-4"
           >
-            <div className="mb-2 flex items-center justify-between">
+            <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
               <h2 className="text-[11px] lg:text-v-cap font-bold uppercase tracking-[0.2em] text-mid-grey dark:text-white/40">Buyer Measurements</h2>
-              <button
-                onClick={() => window.print()}
-                className="flex items-center gap-1 rounded-full bg-teal px-2.5 py-1 text-v-meta font-bold text-white"
-              >
-                <Printer className="h-3 w-3" /> Print / Export
-              </button>
+              <div className="flex items-center gap-2">
+                <div role="radiogroup" aria-label="Measurement unit" className="flex min-h-11 rounded-full border border-line bg-white p-1 dark:border-white/10 dark:bg-surface-dark">
+                  {(["in", "cm"] as const).map((unit) => (
+                    <button key={unit} type="button" role="radio" aria-checked={measurementUnit === unit} onClick={() => setMeasurementUnit(unit)} className={cn("min-h-9 rounded-full px-3 text-v-meta font-bold", measurementUnit === unit ? "bg-ink text-white dark:bg-white dark:text-ink" : "text-vendor-text-grey")}>{unit === "in" ? "Inches" : "cm"}</button>
+                  ))}
+                </div>
+                <button
+                  onClick={() => window.print()}
+                  className="flex min-h-11 items-center gap-1 rounded-full bg-teal px-3 text-v-meta font-bold text-white"
+                >
+                  <Printer className="h-3 w-3" /> Print / Export
+                </button>
+              </div>
             </div>
             <div className="grid grid-cols-3 gap-2 lg:gap-4">
               {(
                 [
                   ["Chest", order.measurements.chest],
+                  ["Bust", order.measurements.bust],
+                  ["Underbust", order.measurements.underbust],
+                  ["Shoulder width", order.measurements.shoulderWidth],
+                  ["Neck", order.measurements.neck],
+                  ["Sleeve length", order.measurements.sleeveLength],
+                  ["Bicep", order.measurements.bicep],
+                  ["Wrist", order.measurements.wrist],
+                  ["Back length", order.measurements.backLength],
                   ["Waist", order.measurements.waist],
                   ["Hips", order.measurements.hips],
+                  ["Thigh", order.measurements.thigh],
+                  ["Knee", order.measurements.knee],
+                  ["Calf", order.measurements.calf],
+                  ["Inseam", order.measurements.inseam],
+                  ["Outseam", order.measurements.outseam],
                   ["Height", order.measurements.height],
-                  ["Shoulder", order.measurements.shoulder],
-                  ["Sleeve", order.measurements.sleeve],
-                ] as [string, number][]
-              ).map(([k, v]) => (
+                ] as [string, number | null | undefined][]
+              ).filter((entry): entry is [string, number] => typeof entry[1] === "number").map(([k, v]) => (
                 <div key={k} className="rounded-md bg-white dark:border-white/10 dark:bg-surface-dark p-2">
                    <p className="text-v-meta text-vendor-text-grey dark:text-white/90">{k}</p>
-                   <p className="text-v-body font-bold text-ink dark:text-white/90">{v} cm</p>
+                   <p className="text-v-body font-bold text-ink dark:text-white/90">
+                     {Math.round((measurementUnit === "cm" ? inToCm(v) : v) * 100) / 100} {measurementUnit}
+                   </p>
                  </div>
               ))}
             </div>

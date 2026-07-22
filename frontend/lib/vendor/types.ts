@@ -42,12 +42,23 @@ export interface OrderItem {
 }
 
 export interface Measurements {
-  chest: number;
-  waist: number;
-  hips: number;
-  height: number;
-  shoulder: number;
-  sleeve: number;
+  chest?: number | null;
+  bust?: number | null;
+  underbust?: number | null;
+  shoulderWidth?: number | null;
+  neck?: number | null;
+  sleeveLength?: number | null;
+  bicep?: number | null;
+  wrist?: number | null;
+  backLength?: number | null;
+  waist?: number | null;
+  hips?: number | null;
+  thigh?: number | null;
+  knee?: number | null;
+  calf?: number | null;
+  inseam?: number | null;
+  outseam?: number | null;
+  height?: number | null;
   note?: string;
 }
 

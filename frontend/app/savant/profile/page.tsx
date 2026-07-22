@@ -13,6 +13,7 @@ import { Button } from "@/components/consumer/Button";
 import { BottomNav } from "@/components/consumer/BottomNav";
 import { Input } from "@/components/consumer/Input";
 import { catalogApi } from "@/lib/api/catalog";
+import { MeasurementEditor } from "@/components/consumer/MeasurementEditor";
 import type { GalleryItem, Size } from "@/lib/consumer/types";
 
 export default function ProfilePage() {
@@ -28,6 +29,7 @@ export default function ProfilePage() {
 
   // Measurements editor
   const [measureOpen, setMeasureOpen] = useState(false);
+  const [tailorOpen, setTailorOpen] = useState(false);
   const [topSize, setTopSize] = useState(user.fitProfile?.sizes?.Top || "");
   const [bottomSize, setBottomSize] = useState(user.fitProfile?.sizes?.Bottom || "");
   const [shoeSize, setShoeSize] = useState(user.fitProfile?.sizes?.Shoes || "");
@@ -290,7 +292,14 @@ export default function ProfilePage() {
                   className="mt-4 flex min-h-11 w-full items-center justify-center gap-1.5 rounded-full bg-ink/5 px-2 text-[12px] sm:px-3 sm:text-[13px] font-bold text-ink transition-colors hover:bg-ink/10 dark:bg-white/10 dark:text-off-white dark:hover:bg-white/15"
                 >
                   <span className="material-symbols-outlined shrink-0 text-[15px]">edit</span>
-                  <span className="truncate">Edit Measurements</span>
+                  <span className="truncate">Edit sizes</span>
+                </button>
+                <button
+                  onClick={() => setTailorOpen(true)}
+                  className="mt-2 flex min-h-11 w-full items-center justify-center gap-1.5 rounded-full bg-ink px-2 text-[12px] font-bold text-white transition-opacity hover:opacity-90 sm:px-3 sm:text-[13px] dark:bg-white dark:text-ink"
+                >
+                  <span className="material-symbols-outlined shrink-0 text-[15px]">straighten</span>
+                  <span className="truncate">Tailor measurements</span>
                 </button>
               </div>
             </div>
@@ -399,11 +408,24 @@ export default function ProfilePage() {
 
       <BottomNav />
 
-      {/* Measurements Editor Sheet */}
+      {/* Tailor measurement sheet — full body, inch/cm toggle */}
+      <BottomSheet
+        open={tailorOpen}
+        onClose={() => setTailorOpen(false)}
+        title="Tailor measurements"
+        height={92}
+      >
+        <MeasurementEditor
+          onClose={() => setTailorOpen(false)}
+          onSaved={() => toast("Measurements saved.", "success")}
+        />
+      </BottomSheet>
+
+      {/* Quick sizes sheet */}
       <BottomSheet
         open={measureOpen}
         onClose={() => setMeasureOpen(false)}
-        title="Edit Measurements"
+        title="Edit sizes"
         height={60}
         footer={
           <Button variant="coral" full onClick={handleSaveMeasurements}>

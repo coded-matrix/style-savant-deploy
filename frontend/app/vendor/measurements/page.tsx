@@ -6,11 +6,31 @@ import { cn } from "@/lib/utils";
 import { useVendor } from "@/context/VendorContext";
 import { PageHeader, EmptyState } from "@/components/vendor/shared";
 import { formatDate } from "@/lib/utils";
+import { inToCm } from "@/lib/api/measurement";
+import type { Measurements } from "@/lib/vendor/types";
+
+type MeasurementUnit = "in" | "cm";
+
+function convertedMeasurement(valueInches: number, unit: MeasurementUnit) {
+  const converted = unit === "cm" ? inToCm(valueInches) : valueInches;
+  return Math.round(converted * 100) / 100;
+}
+
+const MEASUREMENT_ROWS: [string, keyof Measurements][] = [
+  ["Chest", "chest"], ["Bust", "bust"], ["Underbust", "underbust"],
+  ["Shoulder width", "shoulderWidth"], ["Neck", "neck"],
+  ["Sleeve length", "sleeveLength"], ["Bicep", "bicep"],
+  ["Wrist", "wrist"], ["Back length", "backLength"],
+  ["Waist", "waist"], ["Hips", "hips"], ["Thigh", "thigh"],
+  ["Knee", "knee"], ["Calf", "calf"], ["Inseam", "inseam"],
+  ["Outseam", "outseam"], ["Height", "height"],
+];
 
 export default function MeasurementsPage() {
   const { orders } = useVendor();
   const [open, setOpen] = useState<string | null>(null);
   const [query, setQuery] = useState("");
+  const [unit, setUnit] = useState<MeasurementUnit>("in");
 
   const bespoke = useMemo(
     () =>
@@ -26,10 +46,18 @@ export default function MeasurementsPage() {
   );
 
   const exportCsv = () => {
-    const header = "Order #,Customer,Date,Chest,Waist,Hips,Height,Shoulder,Sleeve,Note";
+    const unitLabel = unit === "in" ? "in" : "cm";
+    const measurementHeaders = MEASUREMENT_ROWS.map(([label]) => `${label} (${unitLabel})`);
+    const header = ["Order #", "Customer", "Date", ...measurementHeaders, "Note"].join(",");
     const rows = bespoke.map(
-      (o) =>
-        `${o.id},${o.customer},${o.date},${o.measurements!.chest},${o.measurements!.waist},${o.measurements!.hips},${o.measurements!.height},${o.measurements!.shoulder},${o.measurements!.sleeve},"${o.measurements!.note ?? ""}"`,
+      (o) => {
+        const m = o.measurements!;
+        const values = MEASUREMENT_ROWS.map(([, key]) => {
+          const value = m[key];
+          return typeof value === "number" ? convertedMeasurement(value, unit) : "";
+        });
+        return [o.id, o.customer, o.date, ...values, `"${m.note ?? ""}"`].join(",");
+      },
     );
     const blob = new Blob([header + "\n" + rows.join("\n")], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -45,12 +73,37 @@ export default function MeasurementsPage() {
         title="Measurements"
         subtitle="Smart scan data from buyer orders"
         action={
-          <button
-            onClick={exportCsv}
-            className="flex items-center gap-1 rounded-full bg-teal px-5 py-3 lg:h-btn-d text-v-body font-bold text-white"
-          >
-            <Download className="h-4 w-4" /> Export CSV
-          </button>
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <div
+              role="radiogroup"
+              aria-label="Display measurement unit"
+              className="flex min-h-11 items-center rounded-full border border-line bg-white p-1 dark:border-white/10 dark:bg-surface-dark"
+            >
+              {(["in", "cm"] as MeasurementUnit[]).map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  role="radio"
+                  aria-checked={unit === option}
+                  onClick={() => setUnit(option)}
+                  className={cn(
+                    "min-h-9 rounded-full px-4 text-v-body font-bold transition-colors",
+                    unit === option
+                      ? "bg-ink text-white dark:bg-white dark:text-ink"
+                      : "text-vendor-text-grey",
+                  )}
+                >
+                  {option === "in" ? "Inches" : "cm"}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={exportCsv}
+              className="flex min-h-11 items-center gap-1 rounded-full bg-teal px-5 py-3 lg:h-btn-d text-v-body font-bold text-white"
+            >
+              <Download className="h-4 w-4" /> Export CSV
+            </button>
+          </div>
         }
       />
 
@@ -87,7 +140,12 @@ export default function MeasurementsPage() {
                       <p className="text-v-meta text-vendor-text-grey">{o.customer}</p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-v-body text-ink dark:text-white/90">{m.chest} · {m.waist} · {m.hips} cm</span>
+                      <span className="text-v-body text-ink dark:text-white/90">
+                        {[m.chest, m.waist, m.hips]
+                          .filter((value): value is number => typeof value === "number")
+                          .map((value) => convertedMeasurement(value, unit))
+                          .join(" · ")} {unit}
+                      </span>
                       <ChevronDown
                         className={cn("h-4 w-4 text-mid-grey transition-transform", isOpen && "rotate-180")}
                       />
@@ -97,19 +155,15 @@ export default function MeasurementsPage() {
                     <div id="print-measurements" className="border-t border-line dark:border-white/10 bg-vendor-teal-tint p-5">
                       <div className="flex flex-col gap-4 sm:flex-row">
                         <div className="grid flex-1 grid-cols-3 gap-2 lg:gap-4">
-                          {(
-                            [
-                              ["Chest", m.chest],
-                              ["Waist", m.waist],
-                              ["Hips", m.hips],
-                              ["Height", m.height],
-                              ["Shoulder", m.shoulder],
-                              ["Sleeve", m.sleeve],
-                            ] as [string, number][]
-                          ).map(([k, v]) => (
+                          {MEASUREMENT_ROWS.flatMap(([label, key]) => {
+                            const value = m[key];
+                            return typeof value === "number" ? [[label, value] as const] : [];
+                          }).map(([k, v]) => (
                             <div key={k} className="rounded-xl bg-white dark:border-white/10 dark:bg-surface-dark p-5">
                               <p className="text-v-meta text-vendor-text-grey">{k}</p>
-                              <p className="text-v-body font-bold text-ink dark:text-white/90">{v} cm</p>
+                              <p className="text-v-body font-bold text-ink dark:text-white/90">
+                                {convertedMeasurement(v, unit)} {unit}
+                              </p>
                             </div>
                           ))}
                         </div>

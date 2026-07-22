@@ -10,6 +10,7 @@ import {
   StorefrontSettings,
   AppNotification,
   NotificationCategory,
+  Measurements,
 } from "@/lib/vendor/types";
 
 /* ------------------------------------------------------------------ */
@@ -74,7 +75,7 @@ interface RawOrder {
   paymentReference?: string;
   shippingAddress?: RawShippingAddress;
   bespoke?: boolean;
-  measurements?: { chest: number; waist: number; hips: number; height: number; shoulder: number; sleeve: number; note?: string };
+  measurements?: Measurements;
   createdAt?: string | Date;
 }
 

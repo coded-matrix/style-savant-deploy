@@ -48,16 +48,17 @@ const MOCK_UUIDS = {
 };
 
 const UNSPLASH_MAP: Record<string, string> = {
-  // Art Styles
-  'afro-surreal-art': 'https://images.unsplash.com/photo-1621419203897-20b66b98d495?w=800&q=80',
-  'kente-weave-art': 'https://images.unsplash.com/photo-1687052093309-7a14efa58ecb?w=800&q=80',
-  'minimalist-noir-art': 'https://images.unsplash.com/photo-1719169396058-0afb3bf33dd3?w=800&q=80',
-  'cyber-heritage-art': 'https://images.unsplash.com/photo-1756792339487-d044709b27f2?w=800&q=80',
-  'earth-clay-art': 'https://images.unsplash.com/photo-1719169396171-65edece1112c?w=800&q=80',
-  'high-octane-street-art': 'https://images.unsplash.com/photo-1775036760841-6c1854634646?w=800&q=80',
-  'adinkra-tech-art': 'https://images.unsplash.com/photo-1695142258282-99f0ac5db788?w=800&q=80',
-  'monolithic-forms-art': 'https://images.unsplash.com/photo-1666974932375-90e8a25bc1ef?w=800&q=80',
-  
+  // Onboarding style tiles. Every one must be African fashion worn by an
+  // African model — no masks, sculpture, textiles-only or stock filler.
+  'style-kente': 'https://images.unsplash.com/photo-1769349661389-0737f39a8507?w=800&q=80',
+  'style-ankara': 'https://images.unsplash.com/photo-1696962678565-bee84e6b9cb6?w=800&q=80',
+  'style-agbada': 'https://images.unsplash.com/photo-1776880471112-708c211e6a4b?w=800&q=80',
+  'style-street': 'https://images.unsplash.com/photo-1775036760841-6c1854634646?w=800&q=80',
+  'style-gele': 'https://images.unsplash.com/photo-1666974932375-90e8a25bc1ef?w=800&q=80',
+  'style-royal': 'https://images.unsplash.com/photo-1687052093309-7a14efa58ecb?w=800&q=80',
+  'style-earth': 'https://images.unsplash.com/photo-1687952622898-4e9514a710d5?w=800&q=80',
+  'style-casual': 'https://images.unsplash.com/photo-1663043994777-7ed4b4e6cba3?w=800&q=80',
+
   // Models (Presets)
   'model-ama': 'https://images.unsplash.com/photo-1760907949889-eb62b7fd9f75?w=400&q=80',
   'model-kwame': 'https://images.unsplash.com/photo-1776880471112-708c211e6a4b?w=400&q=80',
@@ -106,27 +107,32 @@ const photo = (seed: string, w = 800, h = 1000) => {
   return UNSPLASH_MAP[seed] || `https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=${w}&q=80`;
 };
 
+// Community avatars. These carry West African names, so the faces must match —
+// the previous set paired them with stock portraits of non-African models.
 const avatar = (seed: string) => {
   const map: Record<string, string> = {
-    'akosua': 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=120&q=80',
-    'kweku': 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=120&q=80',
-    'zola': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&q=80',
-    'tariq': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80',
-    'nia': 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=120&q=80',
-    'sefu': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80',
+    'akosua': 'https://images.unsplash.com/photo-1713845784497-fe3d7ed176d8?w=120&q=80',
+    'kweku': 'https://images.unsplash.com/photo-1687952622898-4e9514a710d5?w=120&q=80',
+    'zola': 'https://images.unsplash.com/photo-1613876215075-276fd62c89a4?w=120&q=80',
+    'tariq': 'https://images.unsplash.com/photo-1776880471112-708c211e6a4b?w=120&q=80',
+    'nia': 'https://images.unsplash.com/photo-1760907949889-eb62b7fd9f75?w=120&q=80',
+    'sefu': 'https://images.unsplash.com/photo-1663044022557-7d5d4c1d5318?w=120&q=80',
   };
-  return map[seed] || `https://images.unsplash.com/photo-1517841905240-472988babdf9?w=120&q=80`;
+  return map[seed] || `https://images.unsplash.com/photo-1713845784497-fe3d7ed176d8?w=120&q=80`;
 };
 
+// Onboarding style picker. Every tile must read as a *wearable fashion
+// aesthetic* — clothing on a person, never sculpture/mask/gallery art, or the
+// shopper can't tell what they're opting into.
 const ART_STYLES_DATA = [
-  { id: 'afro-surreal', name: 'Afro-Surreal', image: photo('afro-surreal-art') },
-  { id: 'kente-weave', name: 'Kente & Weave', image: photo('kente-weave-art') },
-  { id: 'minimalist-noir', name: 'Minimalist Noir', image: photo('minimalist-noir-art') },
-  { id: 'cyber-heritage', name: 'Cyber-Heritage', image: photo('cyber-heritage-art') },
-  { id: 'earth-clay', name: 'Earth & Clay', image: photo('earth-clay-art') },
-  { id: 'high-octane-street', name: 'High-Octane Street', image: photo('high-octane-street-art') },
-  { id: 'adinkra-tech', name: 'Adinkra Tech', image: photo('adinkra-tech-art') },
-  { id: 'monolithic-forms', name: 'Monolithic Forms', image: photo('monolithic-forms-art') },
+  { id: 'kente-weave', name: 'Kente & Weave', image: photo('style-kente') },
+  { id: 'ankara-print', name: 'Ankara Print', image: photo('style-ankara') },
+  { id: 'agbada-kaftan', name: 'Agbada & Kaftan', image: photo('style-agbada') },
+  { id: 'afro-street', name: 'Afro Street', image: photo('style-street') },
+  { id: 'gele-glamour', name: 'Gele & Glamour', image: photo('style-gele') },
+  { id: 'royal-drapes', name: 'Royal Drapes', image: photo('style-royal') },
+  { id: 'earth-linen', name: 'Earth & Linen', image: photo('style-earth') },
+  { id: 'everyday-casual', name: 'Everyday Casual', image: photo('style-casual') },
 ];
 
 const PRESET_MODELS_DATA = [

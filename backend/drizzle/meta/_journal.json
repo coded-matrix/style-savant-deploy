@@ -71,6 +71,13 @@
       "when": 1784416755018,
       "tag": "0009_confused_blindfold",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1784744022882,
+      "tag": "0010_right_mephisto",
+      "breakpoints": true
     }
   ]
 }

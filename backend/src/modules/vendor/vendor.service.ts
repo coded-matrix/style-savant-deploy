@@ -182,13 +182,27 @@ export async function getOrderById(orderId: string, vendorId: string) {
       .where(eq(bodyMeasurements.id, order.measurementId));
     if (meas) {
       measurements = {
-        chest: Number(meas.chestInches || 0) * 2.54,
-        waist: Number(meas.waistInches || 0) * 2.54,
-        hips: Number(meas.hipsInches || 0) * 2.54,
-        height: Number(meas.heightInches || 0) * 2.54,
-        sleeve: Number(meas.sleeveLengthInches || 0) * 2.54,
-        shoulder: 40, // Mocked default
-        note: 'Submitted via AI scan',
+        // Measurements remain canonical inches across the API. Clients may
+        // convert them for display, but a vendor must never receive values
+        // whose unit depends on which endpoint returned them.
+        chest: meas.chestInches == null ? null : Number(meas.chestInches),
+        bust: meas.bustInches == null ? null : Number(meas.bustInches),
+        underbust: meas.underbustInches == null ? null : Number(meas.underbustInches),
+        shoulderWidth: meas.shoulderWidthInches == null ? null : Number(meas.shoulderWidthInches),
+        neck: meas.neckInches == null ? null : Number(meas.neckInches),
+        sleeveLength: meas.sleeveLengthInches == null ? null : Number(meas.sleeveLengthInches),
+        bicep: meas.bicepInches == null ? null : Number(meas.bicepInches),
+        wrist: meas.wristInches == null ? null : Number(meas.wristInches),
+        backLength: meas.backLengthInches == null ? null : Number(meas.backLengthInches),
+        waist: meas.waistInches == null ? null : Number(meas.waistInches),
+        hips: meas.hipsInches == null ? null : Number(meas.hipsInches),
+        thigh: meas.thighInches == null ? null : Number(meas.thighInches),
+        knee: meas.kneeInches == null ? null : Number(meas.kneeInches),
+        calf: meas.calfInches == null ? null : Number(meas.calfInches),
+        inseam: meas.inseamInches == null ? null : Number(meas.inseamInches),
+        outseam: meas.outseamInches == null ? null : Number(meas.outseamInches),
+        height: meas.heightInches == null ? null : Number(meas.heightInches),
+        note: meas.notes,
         confidencePercent: meas.confidencePercent,
       };
     }

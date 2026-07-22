@@ -83,19 +83,48 @@ export const products = pgTable("products", {
 });
 
 // Body Measurements table
+/**
+ * Tailor-grade body measurements. Everything is stored in INCHES — the UI
+ * offers a cm toggle for display, but persistence is single-unit so no
+ * conversion ambiguity can creep in.
+ *
+ * One row per user: writes upsert on userId rather than appending, so a
+ * measurement can actually be corrected.
+ */
 export const bodyMeasurements = pgTable("body_measurements", {
   id: uuid("id").defaultRandom().primaryKey(),
-  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").notNull().unique().references(() => users.id, { onDelete: "cascade" }),
+
+  // ── Upper body ──
   chestInches: decimal("chest_inches", { precision: 5, scale: 2 }),
+  bustInches: decimal("bust_inches", { precision: 5, scale: 2 }),
+  underbustInches: decimal("underbust_inches", { precision: 5, scale: 2 }),
+  shoulderWidthInches: decimal("shoulder_width_inches", { precision: 5, scale: 2 }),
+  neckInches: decimal("neck_inches", { precision: 5, scale: 2 }),
+  sleeveLengthInches: decimal("sleeve_length_inches", { precision: 5, scale: 2 }),
+  bicepInches: decimal("bicep_inches", { precision: 5, scale: 2 }),
+  wristInches: decimal("wrist_inches", { precision: 5, scale: 2 }),
+  backLengthInches: decimal("back_length_inches", { precision: 5, scale: 2 }),
+
+  // ── Lower body ──
   waistInches: decimal("waist_inches", { precision: 5, scale: 2 }),
   hipsInches: decimal("hips_inches", { precision: 5, scale: 2 }),
+  thighInches: decimal("thigh_inches", { precision: 5, scale: 2 }),
+  kneeInches: decimal("knee_inches", { precision: 5, scale: 2 }),
+  calfInches: decimal("calf_inches", { precision: 5, scale: 2 }),
   inseamInches: decimal("inseam_inches", { precision: 5, scale: 2 }),
-  sleeveLengthInches: decimal("sleeve_length_inches", { precision: 5, scale: 2 }),
+  outseamInches: decimal("outseam_inches", { precision: 5, scale: 2 }),
+
+  // ── Full length ──
   heightInches: decimal("height_inches", { precision: 5, scale: 2 }),
+
+  // Free-text notes a tailor should see (e.g. "prefers loose sleeves").
+  notes: text("notes"),
   recommendedSize: text("recommended_size"),
   confidencePercent: integer("confidence_percent"),
   rawLandmarks: jsonb("raw_landmarks"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 // Orders table

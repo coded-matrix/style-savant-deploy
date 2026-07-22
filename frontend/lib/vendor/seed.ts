@@ -281,7 +281,7 @@ export function seedOrders(): Order[] {
   return [
     {
       id: "SS-1042", customer: "Ama Mensah", phone: "+233 24 111 2233", address: "12 Oxford St, Osu, Accra", gps: "GA-123-4567", date: new Date(base - 2 * 86400000).toISOString(), total: 640, status: "pending", bespoke: true,
-      measurements: { chest: 96, waist: 78, hips: 102, height: 162, shoulder: 40, sleeve: 58, note: "Shorten hem by 4cm" },
+      measurements: { chest: 37.8, waist: 30.71, hips: 40.16, height: 63.78, shoulderWidth: 15.75, sleeveLength: 22.83, note: "Shorten hem by 4cm" },
       items: [{ productId: "prod-2", name: "Ankara Wrap Dress", size: "M", color: "Indigo", qty: 1, price: 320 }, { productId: "prod-11", name: "Festival Headwrap", size: "One Size", color: "Gold", qty: 1, price: 110 }, { productId: "prod-3", name: "Bespoke Agbada", size: "Custom", color: "Green", qty: 1, price: 210 }],
     },
     {
@@ -291,7 +291,7 @@ export function seedOrders(): Order[] {
     {
       id: "SS-1040", customer: "Grace Addo", phone: "+233 27 777 8899", address: "33 Labone Ave, Accra", date: new Date(base - 5 * 86400000).toISOString(), total: 540, status: "delivered", tracking: "EA987654321GH", courier: "Ghana Post EMS",
       items: [{ productId: "prod-12", name: "Bespoke Kaftan", size: "Custom", color: "Burgundy", qty: 1, price: 540 }],
-      bespoke: true, measurements: { chest: 102, waist: 84, hips: 110, height: 170, shoulder: 42, sleeve: 60, note: "" },
+      bespoke: true, measurements: { chest: 40.16, waist: 33.07, hips: 43.31, height: 66.93, shoulderWidth: 16.54, sleeveLength: 23.62, note: "" },
     },
     {
       id: "SS-1039", customer: "Yaw Boateng", phone: "+233 23 222 3344", address: "8 Tema Comm 4, Tema", date: new Date(base - 6 * 86400000).toISOString(), total: 260, status: "confirmed",

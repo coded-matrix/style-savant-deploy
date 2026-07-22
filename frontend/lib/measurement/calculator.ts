@@ -68,13 +68,52 @@ export function calculateMeasurements(landmarks: Landmark[]): MeasurementResult 
     calculateDistance(landmarks[RIGHT_ELBOW], landmarks[RIGHT_WRIST]);
   const sleevePixels = (leftSleeve + rightSleeve) / 2;
   const sleeveCm = sleevePixels / pixelsPerCm;
+
+  // A single front-facing image cannot directly observe body circumference.
+  // These proportion-based estimates provide a useful first draft which the
+  // customer can optionally refine in the tailor measurement sheet.
+  const bustCm = chestCm * 1.02;
+  const underbustCm = chestCm * 0.88;
+  const neckCm = assumedHeightCm * 0.22;
+  const bicepCm = assumedHeightCm * 0.18;
+  const wristCm = assumedHeightCm * 0.095;
+  const thighCm = hipsCm * 0.56;
+  const kneeCm = assumedHeightCm * 0.21;
+  const calfCm = assumedHeightCm * 0.22;
+
+  const shoulderMidpoint: Landmark = {
+    x: (landmarks[LEFT_SHOULDER].x + landmarks[RIGHT_SHOULDER].x) / 2,
+    y: (landmarks[LEFT_SHOULDER].y + landmarks[RIGHT_SHOULDER].y) / 2,
+    z: (landmarks[LEFT_SHOULDER].z + landmarks[RIGHT_SHOULDER].z) / 2,
+    visibility: 1,
+  };
+  const hipMidpoint: Landmark = {
+    x: (landmarks[LEFT_HIP].x + landmarks[RIGHT_HIP].x) / 2,
+    y: (landmarks[LEFT_HIP].y + landmarks[RIGHT_HIP].y) / 2,
+    z: (landmarks[LEFT_HIP].z + landmarks[RIGHT_HIP].z) / 2,
+    visibility: 1,
+  };
+  const backLengthCm = calculateDistance(shoulderMidpoint, hipMidpoint) / pixelsPerCm;
+  // Outseam starts at the natural waist, slightly above MediaPipe's hip point.
+  const outseamCm = inseamCm + backLengthCm * 0.18;
   
   // Convert to inches (1 inch = 2.54 cm)
   const chestInches = chestCm / 2.54;
+  const bustInches = bustCm / 2.54;
+  const underbustInches = underbustCm / 2.54;
+  const shoulderWidthInches = shoulderWidthCm / 2.54;
+  const neckInches = neckCm / 2.54;
   const waistInches = waistCm / 2.54;
   const hipsInches = hipsCm / 2.54;
+  const thighInches = thighCm / 2.54;
+  const kneeInches = kneeCm / 2.54;
+  const calfInches = calfCm / 2.54;
   const inseamInches = inseamCm / 2.54;
+  const outseamInches = outseamCm / 2.54;
   const sleeveLengthInches = sleeveCm / 2.54;
+  const bicepInches = bicepCm / 2.54;
+  const wristInches = wristCm / 2.54;
+  const backLengthInches = backLengthCm / 2.54;
   const heightInches = assumedHeightCm / 2.54;
   
   // Calculate confidence based on landmark visibility
@@ -119,10 +158,21 @@ export function calculateMeasurements(landmarks: Landmark[]): MeasurementResult 
   
   return {
     chestInches: Math.round(chestInches * 10) / 10,
+    bustInches: Math.round(bustInches * 10) / 10,
+    underbustInches: Math.round(underbustInches * 10) / 10,
+    shoulderWidthInches: Math.round(shoulderWidthInches * 10) / 10,
+    neckInches: Math.round(neckInches * 10) / 10,
     waistInches: Math.round(waistInches * 10) / 10,
     hipsInches: Math.round(hipsInches * 10) / 10,
+    thighInches: Math.round(thighInches * 10) / 10,
+    kneeInches: Math.round(kneeInches * 10) / 10,
+    calfInches: Math.round(calfInches * 10) / 10,
     inseamInches: Math.round(inseamInches * 10) / 10,
+    outseamInches: Math.round(outseamInches * 10) / 10,
     sleeveLengthInches: Math.round(sleeveLengthInches * 10) / 10,
+    bicepInches: Math.round(bicepInches * 10) / 10,
+    wristInches: Math.round(wristInches * 10) / 10,
+    backLengthInches: Math.round(backLengthInches * 10) / 10,
     heightInches: Math.round(heightInches * 10) / 10,
     recommendedSize,
     fitNote,

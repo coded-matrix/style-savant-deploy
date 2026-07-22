@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useApp } from "@/lib/consumer/store";
@@ -12,6 +12,7 @@ import { BottomSheet } from "@/components/consumer/BottomSheet";
 import { BottomNav } from "@/components/consumer/BottomNav";
 import { SmartImage } from "@/components/consumer/SmartImage";
 import { orderApi } from "@/lib/api/order";
+import { measurementApi, toValues, inToCm, MeasurementField } from "@/lib/api/measurement";
 import type { Address } from "@/lib/consumer/types";
 
 type Step = 1 | 2;
@@ -46,6 +47,41 @@ export default function CheckoutPage() {
     ghanaPostGps: "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof Address | "firstName" | "lastName", string>>>({});
+
+  // Tailor measurements, attached to the order so a vendor can cut to fit.
+  const [measurements, setMeasurements] = useState<Partial<Record<MeasurementField, number>>>({});
+  const [measureUnit, setMeasureUnit] = useState<"in" | "cm">("in");
+  const [includeMeasurements, setIncludeMeasurements] = useState(true);
+
+  useEffect(() => {
+    if (user.isGuest) return;
+    measurementApi
+      .getMyMeasurement()
+      .then((m) => setMeasurements(toValues(m)))
+      .catch(() => setMeasurements({}));
+  }, [user.isGuest]);
+
+  const MEASURE_LABELS: Partial<Record<MeasurementField, string>> = {
+    chest: "Chest", bust: "Bust", underbust: "Underbust",
+    shoulderWidth: "Shoulder", neck: "Neck", sleeveLength: "Sleeve",
+    bicep: "Bicep", wrist: "Wrist", backLength: "Back length",
+    waist: "Waist", hips: "Hips", thigh: "Thigh", knee: "Knee",
+    calf: "Calf", inseam: "Inseam", outseam: "Outseam", height: "Height",
+  };
+
+  const measurementLines = useMemo(() => {
+    if (!includeMeasurements) return [];
+    return (Object.keys(MEASURE_LABELS) as MeasurementField[])
+      .filter((k) => measurements[k] != null)
+      .map((k) => {
+        const inches = measurements[k]!;
+        const v = measureUnit === "in"
+          ? `${Math.round(inches * 100) / 100} in`
+          : `${Math.round(inToCm(inches) * 10) / 10} cm`;
+        return `- ${MEASURE_LABELS[k]}: ${v}`;
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [measurements, measureUnit, includeMeasurements]);
 
   // Group the cart per business — each business gets its own WhatsApp order.
   const vendorGroups = (() => {
@@ -84,48 +120,48 @@ export default function CheckoutPage() {
   const groupSubtotal = (items: typeof cart) =>
     items.reduce((sum, c) => sum + (productById(c.productId)?.priceGHS ?? 0) * c.qty, 0);
 
-  /** Compose the WhatsApp message: readable summary + machine-readable JSON. */
-  const buildMessage = (vendorId: string, items: typeof cart, orderRef: string) => {
+  /**
+   * Compose the WhatsApp message. Plain readable text only — WhatsApp has no
+   * code formatting, so a raw JSON blob arrives as unreadable braces and
+   * quotes. A vendor reads this on a phone and needs to act on it directly.
+   */
+  const buildMessage = (items: typeof cart, orderRef: string) => {
     const customerName = `${firstName} ${lastName}`.trim();
-    const lines = items.map((c) => {
+    const lines: string[] = [];
+
+    lines.push(`New Style Savant order — ${orderRef}`);
+    lines.push("");
+
+    lines.push("ITEMS");
+    for (const c of items) {
       const p = productById(c.productId);
-      return `• ${p?.name ?? c.productId} — size ${c.size}${c.color ? `, ${c.color}` : ""} × ${c.qty} @ ${ghs(p?.priceGHS ?? 0)}`;
-    });
-    const payload = {
-      orderRef,
-      items: items.map((c) => {
-        const p = productById(c.productId);
-        return {
-          productId: c.productId,
-          name: p?.name,
-          size: c.size,
-          color: c.color ?? null,
-          qty: c.qty,
-          unitPriceGHS: p?.priceGHS ?? 0,
-        };
-      }),
-      subtotalGHS: groupSubtotal(items),
-      customer: { name: customerName, phone },
-      deliveryAddress: {
-        line1: form.line1,
-        line2: form.line2 || null,
-        city: form.city,
-        region: form.region,
-        ghanaPostGps: form.ghanaPostGps || null,
-      },
-    };
-    return [
-      `🛍️ New Style Savant order ${orderRef}`,
-      "",
-      ...lines,
-      "",
-      `Subtotal: ${ghs(groupSubtotal(items))}`,
-      `Customer: ${customerName} (${phone})`,
-      `Deliver to: ${form.line1}, ${form.city}, ${form.region}`,
-      "",
-      "Order data:",
-      JSON.stringify(payload, null, 2),
-    ].join("\n");
+      const variant = [c.size && `size ${c.size}`, c.color].filter(Boolean).join(", ");
+      lines.push(
+        `- ${p?.name ?? "Item"}${variant ? ` (${variant})` : ""} x${c.qty} — ${ghs((p?.priceGHS ?? 0) * c.qty)}`,
+      );
+    }
+    lines.push(`Total: ${ghs(groupSubtotal(items))}`);
+    lines.push("");
+
+    lines.push("CUSTOMER");
+    lines.push(`${customerName}`);
+    lines.push(`${phone}`);
+    lines.push("");
+
+    lines.push("DELIVERY");
+    lines.push(form.line1);
+    if (form.line2) lines.push(form.line2);
+    lines.push(`${form.city}, ${form.region}`);
+    if (form.ghanaPostGps) lines.push(`GPS: ${form.ghanaPostGps}`);
+
+    // Bespoke work needs the tailor sheet; only send what's actually filled in.
+    if (measurementLines.length > 0) {
+      lines.push("");
+      lines.push(`MEASUREMENTS (${measureUnit === "in" ? "inches" : "cm"})`);
+      lines.push(...measurementLines);
+    }
+
+    return lines.join("\n");
   };
 
   const waNumber = (vendorId: string): string | null => {
@@ -162,7 +198,7 @@ export default function CheckoutPage() {
       // non-blocking
     }
 
-    const text = encodeURIComponent(buildMessage(vendorId, items, order.id));
+    const text = encodeURIComponent(buildMessage(items, order.id));
     window.open(`https://wa.me/${number}?text=${text}`, "_blank", "noopener");
 
     setSentVendors((prev) => new Set(prev).add(vendorId));
@@ -326,6 +362,61 @@ export default function CheckoutPage() {
                 directly with the business in the chat.
               </p>
             </div>
+
+            {/* Measurements — only shown when the shopper actually has some */}
+            {Object.keys(measurements).length > 0 ? (
+              <div className="bg-white rounded-[24px] p-5 shadow-sm border border-line/20 dark:bg-surface-dark dark:border-white/10">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="font-display text-[14px] font-bold text-ink dark:text-off-white">
+                      Send my measurements
+                    </p>
+                    <p className="mt-0.5 text-[12px] text-mid-grey dark:text-white/60">
+                      {Object.keys(measurements).length} measurements — helps with bespoke fitting
+                    </p>
+                  </div>
+                  <button
+                    role="switch"
+                    aria-checked={includeMeasurements}
+                    aria-label="Include my measurements"
+                    onClick={() => setIncludeMeasurements((v) => !v)}
+                    className={cn(
+                      "relative h-7 w-12 shrink-0 rounded-full transition-colors",
+                      includeMeasurements ? "bg-teal" : "bg-surface-dim dark:bg-white/15",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "absolute top-1 h-5 w-5 rounded-full bg-white transition-transform",
+                        includeMeasurements ? "translate-x-6" : "translate-x-1",
+                      )}
+                    />
+                  </button>
+                </div>
+
+                {includeMeasurements ? (
+                  <div className="mt-3 flex items-center gap-2 border-t border-line/20 pt-3 dark:border-white/10">
+                    <span className="text-[12px] text-mid-grey dark:text-white/60">Send as</span>
+                    <div className="flex items-center rounded-full bg-surface-low p-0.5 dark:bg-white/10">
+                      {(["in", "cm"] as const).map((u) => (
+                        <button
+                          key={u}
+                          onClick={() => setMeasureUnit(u)}
+                          className={cn(
+                            "rounded-full px-3 py-1 text-[12px] font-bold transition-colors",
+                            measureUnit === u
+                              ? "bg-ink text-white dark:bg-white dark:text-ink"
+                              : "text-mid-grey dark:text-white/60",
+                          )}
+                        >
+                          {u === "in" ? "Inches" : "cm"}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
 
             {/* One order card per business */}
             {vendorGroups.map(({ vendorId, items }) => {

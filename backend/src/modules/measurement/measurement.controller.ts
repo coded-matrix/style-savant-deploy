@@ -2,27 +2,75 @@ import { Request, Response } from 'express';
 import { db } from '../../config/db';
 import { bodyMeasurements, products } from '../../db/schema';
 import { AuthRequest, getUserId } from '../../middleware/auth';
-import { eq, desc } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 
 const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
+/** Every measurement the client may send, in inches. */
+const FIELDS = [
+  'chest', 'bust', 'underbust', 'shoulderWidth', 'neck', 'sleeveLength',
+  'bicep', 'wrist', 'backLength',
+  'waist', 'hips', 'thigh', 'knee', 'calf', 'inseam', 'outseam',
+  'height',
+] as const;
+
+/** camelCase input key -> the `*Inches` column it maps to. */
+const COLUMN: Record<string, string> = Object.fromEntries(
+  FIELDS.map((f) => [f, `${f}Inches`]),
+);
+
+/**
+ * Convert the request body into a column patch. Only keys actually present
+ * are included, so a partial edit never blanks the fields it left alone.
+ * A key sent as null explicitly clears that measurement.
+ */
+function toPatch(body: Record<string, unknown>) {
+  const patch: Record<string, unknown> = {};
+  for (const f of FIELDS) {
+    if (!(f in body)) continue;
+    const v = body[f];
+    if (v === null || v === '') {
+      patch[COLUMN[f]] = null;
+      continue;
+    }
+    const n = Number(v);
+    if (!Number.isFinite(n) || n < 0 || n > 120) {
+      throw new Error(`${f} must be a number between 0 and 120 inches`);
+    }
+    patch[COLUMN[f]] = n.toFixed(2);
+  }
+  if ('notes' in body) patch.notes = body.notes ?? null;
+  if ('recommendedSize' in body) patch.recommendedSize = body.recommendedSize;
+  if ('confidencePercent' in body) patch.confidencePercent = body.confidencePercent;
+  if ('rawLandmarks' in body) patch.rawLandmarks = body.rawLandmarks;
+  return patch;
+}
+
+/**
+ * POST/PUT /api/measurements — upsert the caller's measurements.
+ *
+ * Upserts on userId rather than inserting a new row each time: measurements
+ * are a living record a user corrects, not an append-only log.
+ */
 export async function saveMeasurement(req: AuthRequest, res: Response) {
   try {
     const userId = getUserId(req);
-    const { chest, waist, hips, shoulderWidth, inseam, height, recommendedSize, confidencePercent, rawLandmarks } = req.body;
+    let patch: Record<string, unknown>;
+    try {
+      patch = toPatch(req.body ?? {});
+    } catch (err) {
+      res.status(400).json({ error: (err as Error).message });
+      return;
+    }
 
-    const [measurement] = await db.insert(bodyMeasurements).values({
-      userId,
-      chestInches: chest?.toString(),
-      waistInches: waist?.toString(),
-      hipsInches: hips?.toString(),
-      sleeveLengthInches: shoulderWidth?.toString(), // map shoulderWidth to sleeveLengthInches
-      inseamInches: inseam?.toString(),
-      heightInches: height?.toString(),
-      recommendedSize,
-      confidencePercent,
-      rawLandmarks,
-    }).returning();
+    const [measurement] = await db
+      .insert(bodyMeasurements)
+      .values({ userId, ...patch })
+      .onConflictDoUpdate({
+        target: bodyMeasurements.userId,
+        set: { ...patch, updatedAt: new Date() },
+      })
+      .returning();
 
     res.json(measurement);
   } catch (error) {
@@ -35,11 +83,9 @@ export async function getMyMeasurement(req: AuthRequest, res: Response) {
   try {
     const userId = getUserId(req);
     
-    // Get the latest measurement
     const measurements = await db.select()
       .from(bodyMeasurements)
       .where(eq(bodyMeasurements.userId, userId))
-      .orderBy(desc(bodyMeasurements.createdAt))
       .limit(1);
 
     if (measurements.length === 0) {
@@ -68,7 +114,6 @@ export async function recommendSize(req: AuthRequest, res: Response) {
     const measurements = await db.select()
       .from(bodyMeasurements)
       .where(eq(bodyMeasurements.userId, userId))
-      .orderBy(desc(bodyMeasurements.createdAt))
       .limit(1);
 
     if (measurements.length === 0) {
